@@ -7,6 +7,15 @@ import { store } from './store';
 import ReactDOM from 'react-dom';
 import Counter from './App';
 
+/* 
+https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
+https://stevekinney.github.io/redux-fundamentals/introduction-to-react-redux
+https://react-redux.js.org/tutorials/connect
+https://redux-observable.js.org/
+https://static.frontendmasters.com/resources/2019-05-28-react-state/redux-mobx.pdf
+
+*/
+
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
