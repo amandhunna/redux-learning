@@ -2,27 +2,30 @@ import React from 'react';
 import { actions } from './store';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
+import { fetchTweets } from './action';
 import './App.css';
 
 // connect
 
 function Counter(props) {
-  const { count, increment} = props;
-  // console.log(props); { count: 0, dispatch }
+  const { count, dispatch } = props;
+  console.log(props); //{ count: 0, dispatch }
 
   const onIncClick = () => {
-    props.dispatch({type: actions.inc});
+    dispatch({type: actions.inc});
   }
 
   const onResetClick = () => {
-    props.dispatch({type: actions.reset});
+    dispatch({type: actions.reset});
   }
 
   const onDecClick = () => {
-    props.dispatch({type: actions.dec});
+    dispatch({type: actions.dec});
   }
 
-
+  const onConsoleClick = () => {
+    dispatch(fetchTweets());
+  }
 
   return (
      <div className="App">
@@ -35,6 +38,7 @@ function Counter(props) {
            <button onClick={onIncClick}>Inc</button>
            <button onClick={onDecClick}>Dec</button>
            <button onClick={onResetClick}>Reset</button>
+           <button onClick={onConsoleClick}>Click console</button>
          </section>
        </header>
      </div>

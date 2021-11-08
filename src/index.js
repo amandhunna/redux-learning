@@ -14,6 +14,11 @@ https://react-redux.js.org/tutorials/connect
 https://redux-observable.js.org/
 https://static.frontendmasters.com/resources/2019-05-28-react-state/redux-mobx.pdf
 
+middleware in context apis
+https://medium.com/geekculture/middleware-function-for-contextapi-reducer-ab2e772da31f
+
+
+normalize: separate everything out
 */
 
 ReactDOM.render(

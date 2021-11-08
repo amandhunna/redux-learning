@@ -1,8 +1,10 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from 'redux-thunk';
+import { fetchTweets } from "./action";
 
 const initialState = {
     count: 0,
-  }
+}
   
 export  const actions = {
     inc: "INCREMENT",
@@ -33,4 +35,4 @@ export  const actions = {
     return state;
   }
 
-export const store = createStore(reducer);
+export const store = createStore(reducer,applyMiddleware(thunk));
