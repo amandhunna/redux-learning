@@ -1,4 +1,5 @@
 import React from 'react';
+import { actions } from './store';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
@@ -9,6 +10,20 @@ function Counter(props) {
   const { count, increment} = props;
   // console.log(props); { count: 0, dispatch }
 
+  const onIncClick = () => {
+    props.dispatch({type: actions.inc});
+  }
+
+  const onResetClick = () => {
+    props.dispatch({type: actions.reset});
+  }
+
+  const onDecClick = () => {
+    props.dispatch({type: actions.dec});
+  }
+
+
+
   return (
      <div className="App">
        <header className="App-header">
@@ -17,9 +32,9 @@ function Counter(props) {
           count: {count}
          </p>
          <section>
-           <button>Inc</button>
-           <button>Dec</button>
-           <button>Reset</button>
+           <button onClick={onIncClick}>Inc</button>
+           <button onClick={onDecClick}>Dec</button>
+           <button onClick={onResetClick}>Reset</button>
          </section>
        </header>
      </div>

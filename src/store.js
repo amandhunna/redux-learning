@@ -4,8 +4,10 @@ const initialState = {
     count: 0,
   }
   
-  const actions = {
-    inc: "INCREMENT"
+export  const actions = {
+    inc: "INCREMENT",
+    dec: "DECREMENT",
+    reset: "RESET"
   }
   
   const reducer = (state = initialState, action) => {
@@ -15,6 +17,18 @@ const initialState = {
         count: state.count + 1,
       };
     }
+
+    if(type === actions.dec) {
+        return {
+          count: state.count - 1,
+        };
+      }
+
+      if(type === actions.reset) {
+        return {
+          count: 0,
+        };
+      }
   
     return state;
   }
