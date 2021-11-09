@@ -1,6 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
+import { createEpicMiddleware } from 'redux-observable'
 import thunk from 'redux-thunk';
-import { fetchTweets } from "./action";
+
+import rootEpic from './epics';
+
+const epicMiddleware = createEpicMiddleware()
 
 const initialState = {
     count: 0,
@@ -35,4 +39,6 @@ export  const actions = {
     return state;
   }
 
-export const store = createStore(reducer,applyMiddleware(thunk));
+export const store = createStore(reducer,applyMiddleware(epicMiddleware));
+
+epicMiddleware.run(rootEpic);

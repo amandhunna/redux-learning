@@ -7,6 +7,15 @@ import { store } from './store';
 import ReactDOM from 'react-dom';
 import Counter from './App';
 
+ReactDOM.render(
+  <Provider store={store}>
+  <React.StrictMode>
+    <Counter />
+  </React.StrictMode>
+  </Provider>,
+  document.getElementById('root')
+);
+
 /* 
 https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
 https://stevekinney.github.io/redux-fundamentals/introduction-to-react-redux
@@ -20,12 +29,3 @@ https://medium.com/geekculture/middleware-function-for-contextapi-reducer-ab2e77
 
 normalize: separate everything out
 */
-
-ReactDOM.render(
-  <Provider store={store}>
-  <React.StrictMode>
-    <Counter />
-  </React.StrictMode>
-  </Provider>,
-  document.getElementById('root')
-);
