@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from "redux";
 import { createEpicMiddleware } from 'redux-observable'
 import thunk from 'redux-thunk';
 
-import rootEpic from './epics';
+// import rootEpic from './epics';
 
 const epicMiddleware = createEpicMiddleware()
 
@@ -41,4 +41,4 @@ export  const actions = {
 
 export const store = createStore(reducer,applyMiddleware(epicMiddleware));
 
-epicMiddleware.run(rootEpic);
+// epicMiddleware.run(rootEpic);
