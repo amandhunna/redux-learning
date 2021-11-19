@@ -13,3 +13,9 @@
 
 
 ```normalize: separate everything out```
+
+--------------------
+
+- from : https://github.com/satansdeer/ssr-example
+1. npm run build
+2. npm run ssr
