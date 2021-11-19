@@ -1,22 +1,24 @@
+:root {
+  color-scheme: dark light;
+  --color: "red";
+}
+
+body {
+  color: var(--color);
+  background-color: var(--background-color);
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button {
+  width: 6em;
+  height: 2em;
+  margin: 1em;
   color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+  background: black;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
 }
