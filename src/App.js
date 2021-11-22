@@ -34,9 +34,21 @@ function App() {
     setCount(count - 1);
   };
 
+  const imgSet = {
+    2: "http://www.nasa.gov/sites/default/files/thumbnails/image/187_1003705_americas_dxm.png",
+    1: "https://upload.wikimedia.org/wikipedia/en/d/d4/Mickey_Mouse.png",
+    0: "https://upload.wikimedia.org/wikipedia/en/0/00/Popeye_the_Sailor.png"
+  }
+
   return (
     <>
+      <em>On mac: go to settings => general => change appearences to light and dark</em>
       <p>{count}</p>
+      <picture>
+        <source srcSet={imgSet[0]} media="(prefers-color-scheme: dark)" />
+        <source srcSet={imgSet[1]} media="(prefers-color-scheme: light)" />
+        <img src={imgSet[2]} />
+      </picture>
       <button onClick={increment}>Increment</button>
       <button onClick={decrement}>Decrement</button>
     </>
