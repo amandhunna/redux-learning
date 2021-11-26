@@ -49,13 +49,15 @@ function Counter(props) {
 /* filter the states to pass as props */
 const mapStateToProps = state => { return state };
 
+/*
 const mapDispatchToProps = (dispatch) => {
-/*   return {
+   return {
     increment() {
       dispatch(incrementValue())
     }
-  } */
+  } 
 }
+*/
 
 // export default Counter
 export default connect(mapStateToProps/* map states to props, map dispatch to props */)(Counter);
