@@ -13,3 +13,6 @@
 
 
 ```normalize: separate everything out```
+
+
+```total size occupied by the folder: du -hs ./build```
