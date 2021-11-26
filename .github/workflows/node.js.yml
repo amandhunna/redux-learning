@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
@@ -30,5 +28,14 @@ jobs:
     - run: CI=false && npm ci
     - run: npm run build --if-present
     - run: npm run build:size
-    - run: echo "printing env ${GITHUB_ACTION}"
-    - run: echo ${GITHUB_REF_NAME}
+    - run: echo "printing env. action=${GITHUB_ACTION}, branch_name=${GITHUB_REF_NAME}"
+    - run: echo "ending build job"
+  
+  updateBranch:
+    name: "Update branch"
+    runs-on: ubantu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+    - run: echo "running 2nd job"
+    
