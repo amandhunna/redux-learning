@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:size": " du -sh ./build >> build-size.txt"
+    "build:size": " du -sh ./ >> build-size.txt"
   },
   "eslintConfig": {
     "extends": [
