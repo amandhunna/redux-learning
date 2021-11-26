@@ -30,4 +30,5 @@ jobs:
     - run: CI=false && npm ci
     - run: npm run build --if-present
     - run: npm run build:size
-    - run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+    - run: echo "printing env ${GITHUB_ACTION}"
+    - run: echo ${GITHUB_REF_NAME}
