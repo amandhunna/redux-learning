@@ -3,21 +3,6 @@
 
 name: Node.js CI
 
-inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.who-to-greet }}
-
-
 on:
   push:
     branches: [ main, test ]
@@ -64,6 +49,6 @@ jobs:
 
     - name: Package size report
       uses: pkg-size/action@v1
-  
+
 
     - run: echo "Run compete"
