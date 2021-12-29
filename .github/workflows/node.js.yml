@@ -13,22 +13,26 @@ on:
     branches: [ buildsize-actions ]
 
 jobs:
-  build:
+  build-base:
+    name: Build base
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-        # node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - run: echo "printing env. action=${GITHUB_ACTION}, branch_name=${GITHUB_REF_NAME}"
-    - run: echo "ending build job"
-    - run: echo "Run compete"
+        ref: ${{ github.base_ref }}
+  
+    - name: Install dependencies
+      run: npm ci
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
+  
+    - name: Build
+      run: npm run build-demo
+  
+    - name: Upload base stats.json
+      uses: actions/upload-artifact@v2
+      with:
+        name: base
+        path: ./demo/demo-dist/stats.json
+        retention-days: 1
