@@ -28,7 +28,7 @@ jobs:
         NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
   
     - name: Build
-      run: npm run build-demo
+      run: echo "npm run build"
   
     - name: Upload base stats.json
       uses: actions/upload-artifact@v2
