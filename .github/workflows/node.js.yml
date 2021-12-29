@@ -28,9 +28,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: CI=false && npm ci
-    - run: npm run build --if-present
-    - run: npm run build:size
+    
     - run: echo "printing env. action=${GITHUB_ACTION}, branch_name=${GITHUB_REF_NAME}"
     - run: echo "ending build job"
     - run: echo "Run compete"
