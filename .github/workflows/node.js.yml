@@ -85,9 +85,9 @@ jobs:
       id: get-diff
       uses: NejcZdovc/bundle-size-diff@v1
       with:
-        base_path: './base/stats.json'
-        pr_path: './pr/stats.json'
-  
+        base_path: base
+        pr_path: pr
+
     - name: Comment
       uses: NejcZdovc/comment-pr@v1.1.1
       with:
