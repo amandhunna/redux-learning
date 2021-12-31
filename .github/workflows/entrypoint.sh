@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
-echo "Hello $1"
+echo "Hello $current"
 time=$(date)
-echo "::set-output name=time::$time"
+echo ":ne:set-output name=time::$time"
+
+# current=$(du -sh ./)
