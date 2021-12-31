@@ -30,6 +30,6 @@ jobs:
     - name: read JSON property
       uses: ashley-taylor/read-json-property-action@v1.0
       with:
-        path: "./../../buildSize.json"
+        path: "./buildSize.json"
         json: "{main1: 1}"
         property: main
