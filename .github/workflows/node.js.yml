@@ -25,7 +25,7 @@ jobs:
         NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
 
     - name: Build
-      run: echo $GITHUB_REF
+      run: echo "$GITHUB_REF github.workspace"
       
     - name: read JSON property
       uses: ashley-taylor/read-json-property-action@v1.0
