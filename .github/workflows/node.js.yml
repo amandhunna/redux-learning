@@ -24,10 +24,10 @@ jobs:
 
     - name: Install dependencies
       run: echo "npm ci"
+      run: npm run build
       env:
         NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
 
     - name: Build
       run: echo $GITHUB_REF
-      run: npm run build
 
