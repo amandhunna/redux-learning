@@ -28,5 +28,5 @@ jobs:
         NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
 
     - name: Build
-      run: echo ${{ github.base_ref }}
+      run: echo $GITHUB_REF
 
