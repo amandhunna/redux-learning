@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:size": "du -sh ./build | cut -f1 >> build-size.json"
+    "build:size": "du -sh ./build | cut -f1 >> build-size.json",
+    "main:size": "jq '.[].main' ./buildSize.json"
   },
   "eslintConfig": {
     "extends": [
