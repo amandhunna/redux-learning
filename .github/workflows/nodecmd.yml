@@ -21,7 +21,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: build-size-artifact
-        path: ./buildSize.json
+        path: buildSize.json
   build:
 
     runs-on: ubuntu-latest
