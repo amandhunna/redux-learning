@@ -1,6 +1,8 @@
+name: Build
+
 on:
   push:
-    branches: [bundlesize-actions]
+    branches: [buildsize-actions]
   pull_request:
     types: [synchronize, opened, reopened]
 
@@ -15,14 +17,14 @@ jobs:
           node-version: "12"
 
       - name: Install dependencies
-        run: npm install
+        run: yarn
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Run BundleMon
         run: yarn bundlemon
         env:
           BUNDLEMON_PROJECT_ID: 61d56e79b671cc0008f61c9b
-          BUNDLEMON_PROJECT_APIKEY: ${{ secrets.BUNDLEMON_PROJECT_APIKEY }} # not required for public repos
+          BUNDLEMON_PROJECT_APIKEY: 263b7602f868671ddca2bdb535d5eab267630235536c12be753311fc079b8dfd
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}} # important!
