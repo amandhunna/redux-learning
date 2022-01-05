@@ -25,6 +25,15 @@ jobs:
         if-no-files-found: error
         retention-days: 1
 
+    steps:
+    - uses: actions/checkout@v2
+    - run: mkdir -p artifact
+    - run: echo hello > artifact/world.txt
+    - uses: actions/upload-artifact@v2
+  with:
+    name: my-artifact
+    path: artifact/world.txt
+
   build:
 
     runs-on: ubuntu-latest

@@ -1,0 +1,28 @@
+on:
+  push:
+    branches: [bundlesize-actions]
+  pull_request:
+    types: [synchronize, opened, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "12"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Run BundleMon
+        run: yarn bundlemon
+        env:
+          BUNDLEMON_PROJECT_ID: 61d56e79b671cc0008f61c9b
+          BUNDLEMON_PROJECT_APIKEY: ${{ secrets.BUNDLEMON_PROJECT_APIKEY }} # not required for public repos
+          CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}} # important!
