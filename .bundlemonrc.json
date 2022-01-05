@@ -1,0 +1,16 @@
+{
+    "baseDir": "./build",
+    "files": [
+      {
+        "path": "index.html"
+      },
+      {
+        "path": "static/js/*.chunk.js",
+        "maxPercentIncrease": 10
+      },
+      {
+        "path": "static/js/runtime-main.*.js",
+        "maxSize": "1kb"
+      }
+    ]
+  }
