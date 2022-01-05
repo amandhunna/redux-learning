@@ -1,4 +1,4 @@
-name: Node.js CI
+name: not in use
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
