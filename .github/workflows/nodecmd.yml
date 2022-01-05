@@ -21,7 +21,10 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: build-size-artifact
-        path: buildSize.json
+        path: ./buildSize.json
+        if-no-files-found: error
+        retention-days: 1
+
   build:
 
     runs-on: ubuntu-latest
