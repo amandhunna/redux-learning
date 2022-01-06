@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [buildsize-actions]
+    branches: [buildsize-actions, main]
   pull_request:
     types: [synchronize, opened, reopened]
 
