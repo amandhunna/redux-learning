@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import logo from './logo.svg';
 import { fetchTweets } from './action';
 import './App.css';
+import text from "./lorem";
 
 // connect
 
