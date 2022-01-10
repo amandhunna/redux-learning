@@ -39,7 +39,7 @@ jobs:
         retention-days: 1 # optional
 
   # base branch
-    build-base:
+  build-base:
       name: Build base
       runs-on: ubuntu-latest
       steps:
@@ -56,6 +56,6 @@ jobs:
         with:
           name: upload artifact
       # A file, directory or wildcard pattern that describes what to upload
-          path: build
+          path: build-base
           if-no-files-found: error
           retention-days: 1 # optional
