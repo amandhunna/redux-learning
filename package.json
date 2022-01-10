@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "bundlesize",
     "eject": "react-scripts eject",
     "build:size": "du -sh ./build | cut -f1 >> build-size.json",
     "main:size": "sh ./entrypoint.sh"
@@ -58,5 +58,8 @@
         "path": "assets/**/*.{png,svg}"
       }
     ]
+  },
+  "devDependencies": {
+    "bundlesize": "^0.18.1"
   }
 }

@@ -1,0 +1,12 @@
+{
+    "files": [
+        {
+          "path": "build/**/main-*.js",
+          "maxSize": "5 kB"
+        },
+        {
+          "path": "build/**/*.chunk.js",
+          "maxSize": "50 kB"
+        }
+      ]
+  }
