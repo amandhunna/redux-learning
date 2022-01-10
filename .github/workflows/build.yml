@@ -40,9 +40,9 @@ jobs:
 
   # base branch
   build-base:
-      name: Build base
-      runs-on: ubuntu-latest
-      steps:
+    name: Build base
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
