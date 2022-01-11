@@ -1,28 +1,16 @@
 
 const path = require('path');
 const fs = require('fs');
-const { spawn } = require("child_process");
-const ls = spawn('ls', ['-lh', '/usr']);
 
-ls.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
-});
 
-ls.stderr.on('data', (data) => {
-  console.error(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
-});
-
+console.log("args :", process.argv);
 
 const baseFile = path.join(__dirname, 'masterBuild.txt');
 
 const fileTracker = {/* filepath: { base, current } */};
 console.log("-------running-----------------");
 
-console.log("----", __dirname);
+console.log("---__dirname-", __dirname);
 
 /* reading base */
 fs.readFile(baseFile, 'utf8', function(error, baseData){      
@@ -56,3 +44,22 @@ function addProperties(dataLines,type, fileTracker) {
         }
     });
 }
+
+/* 
+const { spawn } = require("child_process");
+const ls = spawn('ls', ['-lh', '/usr']);
+
+ls.stdout.on('data', (data) => {
+  console.log(`stdout: ${data}`);
+});
+
+ls.stderr.on('data', (data) => {
+  console.error(`stderr: ${data}`);
+});
+
+ls.on('close', (code) => {
+  console.log(`child process exited with code ${code}`);
+});
+
+
+*/
