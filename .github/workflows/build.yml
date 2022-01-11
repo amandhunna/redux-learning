@@ -38,6 +38,7 @@ jobs:
   # base branch
   build-base:
     name: Build base
+    needs: [build]
     runs-on: ubuntu-latest
     
     steps:
