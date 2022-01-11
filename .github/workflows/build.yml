@@ -47,18 +47,8 @@ jobs:
         with:
          ref: ${{ github.base_ref }}
      
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: mkdir -p artifact
-      - run: du -hc ./build > artifact/base.txt
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: upload artifact
-      # A file, directory or wildcard pattern that describes what to upload
-          path: artifact
-          if-no-files-found: error
-          retention-days: 1 # optional
+      - run: echo "npm ci"
+
 
   compare:
     runs-on: ubuntu-latest
