@@ -63,3 +63,6 @@ jobs:
           path: artifact
           if-no-files-found: error
           retention-days: 1 # optional
+     
+     name: running node
+      -run: node readContent.js
