@@ -48,6 +48,7 @@ jobs:
          ref: ${{ github.base_ref }}
      
       - run: echo "npm ci"
+      - run: cat artifact/current.txt
 
 
   compare:
