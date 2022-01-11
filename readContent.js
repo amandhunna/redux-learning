@@ -10,7 +10,13 @@ const baseFile = path.join(__dirname, 'masterBuild.txt');
 const fileTracker = {/* filepath: { base, current } */};
 console.log("-------running-----------------");
 
-console.log("---__dirname-", __dirname);
+const args =  process.argv
+
+for(let index=2; index<=args.length -2; index+=2) {
+    const filePath = args[index+1];
+    const size = args[index];
+    fileTracker[filePath] =  { base: 0, current: size }
+};
 
 /* reading base */
 fs.readFile(baseFile, 'utf8', function(error, baseData){      
@@ -18,16 +24,7 @@ fs.readFile(baseFile, 'utf8', function(error, baseData){
         console.error("error is base: ", error)
     } else {
         addProperties(baseData,"base", fileTracker)
-        // reading current * /
-/*         fs.readFile(currentFile, 'utf8', function(error, currentData) {      
-            if(error) {
-                console.error("error in currentData: ", error)
-            } else {
-                addProperties(currentData, "current", fileTracker)
-            }
-            console.log(fileTracker);
-        });
- */
+
         console.log(fileTracker);
     }
 });
@@ -36,7 +33,7 @@ function addProperties(dataLines,type, fileTracker) {
     const lines = dataLines.split("\n");
     lines.forEach(line => {
         const [size, filePath] = line.split("\t");
-        if(![undefined, 'undefined', 'total'].includes(filePath)) {
+        if(![undefined, 'undefined'].includes(filePath)) {
             if(!Object.keys(fileTracker).includes(filePath)) {
                 fileTracker[filePath] = { base: 0, current: 0 };
             }
@@ -44,22 +41,3 @@ function addProperties(dataLines,type, fileTracker) {
         }
     });
 }
-
-/* 
-const { spawn } = require("child_process");
-const ls = spawn('ls', ['-lh', '/usr']);
-
-ls.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
-});
-
-ls.stderr.on('data', (data) => {
-  console.error(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
-});
-
-
-*/
