@@ -7,7 +7,7 @@ env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 on:
-   push:
+  push:
     branches: [ main,buildsize, nodeRead]
   pull_request:
     branches: [ main,buildsize]
