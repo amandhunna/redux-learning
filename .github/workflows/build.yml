@@ -26,5 +26,5 @@ jobs:
     - run: echo "npm test"
     - run: mkdir -p artifact
     - run: du -hc ./build > artifact/current.txt
-    - run: node readContent.js  ar=$(cat artifact/current.txt)
+    - run: node readContent.js  $(cat artifact/current.txt)
   
