@@ -4,8 +4,10 @@ env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 on:
+  pull_request:
+    branches: [ main ]
   push:
-    branches: [ nodeRead]
+    branches: [ nodeRead-2]
 
 jobs:
   build:
