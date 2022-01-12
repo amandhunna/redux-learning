@@ -1,6 +1,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const core = require('@actions/core');
 
 const args =  process.argv;
 const fileTracker = {/* filepath: { base, current } */};
@@ -16,10 +17,13 @@ for(let index=2; index<=args.length -2; index+=2) {
 const baseFile = path.join(__dirname, 'masterBuild.txt');
 fs.readFile(baseFile, 'utf8', function(error, baseData){      
     if(error) {
-        console.error("error is base: ", error)
+        //console.error("error is base: ", error)
+        core.setFailed(`Action failed with error :: ${error}`);
     } else {
-        addProperties(baseData,"base", fileTracker)
+        addProperties(baseData,"base", fileTracker);
 
+        core.info('Output: build report')
+        core.info(`${fileTracker}`)
         console.log(fileTracker);
     }
 });
