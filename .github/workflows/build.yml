@@ -35,8 +35,8 @@ jobs:
       - name: commit
         run: |
           # Stage the file, commit and push
-          git add time.txt
-          git commit -m "new date commit"
+          git add masterBuild.txt
+          git commit -m "updated buid size"
           git push origin mergeWork
 
       # Runs a set of commands using the runners shell
