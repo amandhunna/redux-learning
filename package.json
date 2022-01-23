@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:size": " du -sh ./ >> build-size.txt"
+    "build:size": " du -sh ./build >> build-size.txt"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@actions/core": "^1.6.0"
   }
 }
