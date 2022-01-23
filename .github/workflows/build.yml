@@ -2,15 +2,12 @@
 
 name: CI, merge commit
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ mergeWork ]
-      types: [closed]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    types:
+      - closed
+    branches:    
+      - 'main'
 
 jobs:
   build:
