@@ -15,18 +15,33 @@ for(let index=2; index<=args.length -2; index+=2) {
 
 /* reading base */
 const baseFile = path.join(__dirname, 'masterBuild.txt');
-fs.readFile(baseFile, 'utf8', function(error, baseData){      
-    if(error) {
-        //console.error("error is base: ", error)
-        core.setFailed(`Action failed with error :: ${error}`);
-    } else {
-        addProperties(baseData,"base", fileTracker);
 
-        core.info('Output: build report')
-        core.info(`${fileTracker}`)
-        console.log(fileTracker);
+/* check if base file exits */
+const isBaseFileExist = fs.existsSync(baseFile);
+
+try {
+    if (isBaseFileExist) {
+        fs.readFile(baseFile, 'utf8', function(error, baseData){      
+            if(error) {
+                // console.error("error is base: ", error.stack)
+                core.setFailed(`Action failed with error :: ${error}`);
+            } else {
+                addProperties(baseData,"base", fileTracker);
+        
+                core.info('Output: build report')
+                core.info(JSON.parse(fileTracker))
+                //console.log(fileTracker);
+            }
+        });
+    } else {
+        core.info('Output: build report: base file does not exsist')
+        core.info(JSON.stringify(fileTracker))
     }
-});
+  } catch(error) {
+    core.setFailed(`Action failed with error :: ${error}`);
+  }
+
+
 
 /* util */
 function addProperties(dataLines,type, fileTracker) {
