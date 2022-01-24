@@ -28,14 +28,15 @@ try {
             } else {
                 addProperties(baseData,"base", fileTracker);
         
-                core.info('Output: build report')
-                core.info(JSON.parse(fileTracker))
-                //console.log(fileTracker);
+                core.info('Output: build report');
+                //core.info(JSON.parse(fileTracker))
+                console.log(fileTracker);
             }
         });
     } else {
-        core.info('Output: build report: base file does not exsist')
-        core.info(JSON.stringify(fileTracker))
+        core.info('Output: build report: base file does not exsist');
+        //core.info(JSON.stringify(fileTracker))
+        console.log(fileTracker);
     }
   } catch(error) {
     core.setFailed(`Action failed with error :: ${error}`);
