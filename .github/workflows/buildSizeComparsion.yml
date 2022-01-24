@@ -1,13 +1,8 @@
 name: Build size comparsion
 
-env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
 on:
   pull_request:
     branches: [ main ]
-  push:
-    branches: [ tip/buildsize ]
 
 jobs:
   build:
