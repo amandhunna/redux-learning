@@ -3,6 +3,7 @@ import { actions } from './store';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
 import { fetchTweets } from './action';
+import image from "./testImage.jpeg";
 import './App.css';
 
 // connect
@@ -32,7 +33,7 @@ function Counter(props) {
        <header className="App-header">
          <img src={logo} className="App-logo" alt="logo" />
          <p>
-          count: {count}
+          count: {count} <image src={image} alt="text" />
          </p>
          <section>
            <button onClick={onIncClick}>Inc</button>
