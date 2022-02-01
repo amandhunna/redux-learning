@@ -21,6 +21,6 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: mkdir -p artifact
-    - run: du -hc ./build > artifact/current.txt
+    - run: du -hc ./build/* > artifact/current.txt
     - run: node readContent.js  $(cat artifact/current.txt)
   

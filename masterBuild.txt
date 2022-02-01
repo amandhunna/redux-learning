@@ -1,0 +1,12 @@
+6.0K	./build/asset-manifest.json
+6.0K	./build/favicon.ico
+6.0K	./build/index.html
+6.0K	./build/logo192.png
+612K	./build/logo512.png
+6.0K	./build/manifest.json
+6.0K	./build/robots.txt
+6.0K	./build/static/css
+608K	./build/static/js
+640K	./build/static/media
+6.2M	./build/static
+6.3M	total
