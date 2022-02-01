@@ -1,8 +1,8 @@
-4.0K	./build/asset-manifest.json
-4.0K	./build/favicon.ico
-4.0K	./build/index.html
-8.0K	./build/logo192.png
- 12K	./build/logo512.png
-4.0K	./build/manifest.json
-4.0K	./build/robots.txt
-1.2M	./build/static
+current2	./build/asset-manifest.json
+current2	./build/favicon.ico
+current2	./build/index.html
+current2	./build/logo192.png
+current2	./build/logo512.png
+current2	./build/manifest.json
+current2	./build/robots.txt
+current2	./build/static
