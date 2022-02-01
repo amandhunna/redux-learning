@@ -21,6 +21,7 @@ const isBaseFileExist = fs.existsSync(baseFile);
 
 try {
     if (isBaseFileExist) {
+        core.info("isBaseFileExist exsist");
         fs.readFile(baseFile, 'utf8', function(error, baseData){      
             if(error) {
                 // console.error("error is base: ", error.stack)
