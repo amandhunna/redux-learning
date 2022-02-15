@@ -6,9 +6,10 @@ const github = require('@actions/github');
 
 console.log("github", github);
 const myToken = core.getInput('GITHUB_TOKEN');
-
+const TOKEN = core.getInput('GITHUB_TOKEN');
 
 console.log("---", myToken);
+console.log("---6o4kn", TOKEN)
 
 function runBuild() {
     const args =  process.argv;
