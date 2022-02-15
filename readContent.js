@@ -11,18 +11,7 @@ console.log("process", process.env);
 const github_token1 = core.getInput('GITHUB_TOKEN');
 console.log(":=1 ", github_token1);
 
-const message = core.getInput('message');
-console.log(":= message", message);
 
-const values = {
-    val: github_token1,
-    cal: message
-}
-
-console.log("values",values);
-
-const core = require('@actions/core');
-const github = require('@actions/github');
 
 async function run() {
   try {
