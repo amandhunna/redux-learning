@@ -5,9 +5,9 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { Octokit } =require ('@octokit/rest');
 
-console.log("github", github);
+// console.log("github", github);
 
-console.log("process", process.env);
+//console.log("process", process.env);
 
 
 async function run() {
@@ -22,7 +22,7 @@ async function run() {
       const pull_request_number = context.payload.pull_request.number;
       console.log("process.env.GITHUB_TOKEN",)
       const octokit = new Octokit({
-        auth: "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"
+        auth: "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"
       });
   
       // Create a new Comment
