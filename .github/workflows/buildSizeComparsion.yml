@@ -4,12 +4,13 @@ on:
   push:
     branches: [ pr-comment-silent ]
   
-  pull_request:
+  pull_request_target:
     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
     strategy:
       matrix:
         node-version: [12.x]
