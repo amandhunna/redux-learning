@@ -8,7 +8,7 @@ console.log("github", github);
 
 console.log("process", process.env);
 
-const github_token1 = core.getInput('GITHUB_TOKEN');
+const github_token1 = core.getInput('TOKEN');
 console.log(":=1 ", github_token1);
 
 
