@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const core = require('@actions/core');
 const github = require('@actions/github');
-import { Octokit } from '@octokit/rest';
+const { Octokit } =require ('@octokit/rest');
 
 console.log("github", github);
 
