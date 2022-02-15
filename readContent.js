@@ -7,9 +7,6 @@ const { Octokit } =require ('@octokit/rest');
 
 console.log("github", github);
 
-console.log("process.env", process.env.GITHUB_TOKEN);
-
-
 console.log("process", process.env);
 
 
