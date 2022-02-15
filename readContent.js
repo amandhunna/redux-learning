@@ -9,8 +9,8 @@ console.log("github", github);
 
 async function run() {
     try {
-      const github_token = core.getInput('GITHUB_TOKEN');
-  
+      const github_token = core.getInput('super_secret');
+        console.log(":= ", github_token);
       const context = github.context;
       if (context.payload.pull_request == null) {
           core.setFailed('No pull request found.');
