@@ -34,7 +34,7 @@ async function run() {
       const pull_request_number = context.payload.pull_request.number;
       console.log("process.env.GITHUB_TOKEN",)
       const octokit = new Octokit({
-        auth: "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"
+        auth: "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"
       });
   
       // Create a new Comment
