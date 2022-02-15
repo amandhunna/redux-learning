@@ -22,7 +22,7 @@ async function run() {
       const pull_request_number = context.payload.pull_request.number;
       console.log("process.env.GITHUB_TOKEN",)
       const octokit = new Octokit({
-        auth: process.env.GITHUB_TOKEN
+        auth: "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"
       });
   
       // Create a new Comment
