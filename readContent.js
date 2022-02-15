@@ -15,6 +15,12 @@ console.log(":=1 ", github_token1);
 const message = core.getInput('message');
 console.log(":= message", message);
 
+const values = {
+    val: github_token1,
+    cal: message
+}
+
+console.log("values",values);
 
 async function run() {
     try {
