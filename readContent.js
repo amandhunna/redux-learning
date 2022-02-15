@@ -5,7 +5,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 console.log("github", github);
-const myToken = core.getInput('GITHUB_TOKEN');
+const myToken = core.getInput('GITHUB_TOKEN2');
 const TOKEN = core.getInput('GITHUB_TOKEN');
 
 console.log("---", myToken);
