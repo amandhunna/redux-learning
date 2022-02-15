@@ -5,6 +5,10 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 console.log("github", github);
+const myToken = core.getInput('GITHUB_TOKEN');
+
+
+console.log("---", myToken);
 
 function runBuild() {
     const args =  process.argv;
