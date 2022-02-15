@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        message: "Hello, It's my first comment with Github action !"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       env:
         super_secret: "342323423"
     - run: npm ci

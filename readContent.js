@@ -9,6 +9,12 @@ const { Octokit } =require ('@octokit/rest');
 
 //console.log("process", process.env);
 
+const github_token1 = core.getInput('GITHUB_TOKEN');
+console.log(":=1 ", github_token1);
+
+const message = core.getInput('message');
+console.log(":= message", message);
+
 
 async function run() {
     try {
