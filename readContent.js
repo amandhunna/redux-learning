@@ -3,9 +3,8 @@ const path = require('path');
 const fs = require('fs');
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { Octokit } =require ('@octokit/rest');
 
- console.log("github", github);
+console.log("github", github);
 
 console.log("process", process.env);
 
@@ -22,37 +21,36 @@ const values = {
 
 console.log("values",values);
 
+const core = require('@actions/core');
+const github = require('@actions/github');
+
 async function run() {
-    try {
-      const github_token = core.getInput('super_secret');
-        console.log(":= ", github_token);
-      const context = github.context;
-      if (context.payload.pull_request == null) {
-          core.setFailed('No pull request found.');
-          return;
-      }
-      const pull_request_number = context.payload.pull_request.number;
-      console.log("process.env.GITHUB_TOKEN");
+  try {
+    const message = "I am first comment"
+    const github_token = core.getInput('GITHUB_TOKEN');
 
-      const octokit = new Octokit({
-        auth: "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"
-      });
-  
-      // Create a new Comment
-      const new_comment  = await octokit.issues.createComment({
-          ...context.repo,
-          issue_number: pull_request_number,
-          body: "This is first comment"
-        });
-        console.log("---comment-", new_comment);
-
-  
-    } catch (error) {
-      core.setFailed(error.message);
+    const context = github.context;
+    if (context.payload.pull_request == null) {
+        core.setFailed('No pull request found.');
+        return;
     }
+    const pull_request_number = context.payload.pull_request.number;
+
+    const octokit = new github.GitHub(github_token);
+    const new_comment = octokit.issues.createComment({
+        ...context.repo,
+        issue_number: pull_request_number,
+        body: message
+      });
+    console.log("-----new", new_comment);
+
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 }
 
 run();
+
 
 
 function runBuild() {
