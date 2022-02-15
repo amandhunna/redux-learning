@@ -5,9 +5,9 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { Octokit } =require ('@octokit/rest');
 
-// console.log("github", github);
+ console.log("github", github);
 
-//console.log("process", process.env);
+console.log("process", process.env);
 
 const github_token1 = core.getInput('GITHUB_TOKEN');
 console.log(":=1 ", github_token1);
