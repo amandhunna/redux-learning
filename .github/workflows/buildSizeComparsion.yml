@@ -23,9 +23,9 @@ jobs:
         message: "Hello, It's my first comment with Github action !"
         GITHUB_TOKEN: ${{ secrets.self.TOKEN }}
       env:
-        super_secret: "342323423"
+        super_secret: ${{secrets.TOKEN}}
     - run: echo "npm ci"
-    - run: echo ${{env.super_secret}}
+    - run: echo $super_secret
     - run: echo "npm run build --if-present"
     - run: echo "mkdir -p artifact"
     - run: echo "du -hc ./build/* > artifact/current.txt"
