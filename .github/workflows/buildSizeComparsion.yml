@@ -9,4 +9,4 @@ jobs:
           echo "$CANDY_SECURE"
 
         env: 
-          CANDY_SECURE: ${{ secrets.TOKEN }}
+          CANDY_SECURE: ${{ secrets.BOT_AUTH_TOKEN }}
