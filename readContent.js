@@ -7,7 +7,11 @@ const { Octokit } =require ('@octokit/rest');
 
 console.log("github", github.getOctokit());
 
-console.log(process.env.GITHUB_TOKEN);
+console.log("process.env", process.env.GITHUB_TOKEN);
+
+
+console.log("process", process.env);
+
 
 async function run() {
     try {
@@ -19,7 +23,7 @@ async function run() {
           return;
       }
       const pull_request_number = context.payload.pull_request.number;
-      console.log("process.env.GITHUB_TOKEN", .GITHUB_TOKEN)
+      console.log("process.env.GITHUB_TOKEN",)
       const octokit = new Octokit({
         auth: process.env.GITHUB_TOKEN
       });
