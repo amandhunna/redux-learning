@@ -32,9 +32,10 @@ async function run() {
           return;
       }
       const pull_request_number = context.payload.pull_request.number;
-      console.log("process.env.GITHUB_TOKEN",)
+      console.log("process.env.GITHUB_TOKEN");
+
       const octokit = new Octokit({
-        auth: "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"
+        auth: "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"
       });
   
       // Create a new Comment
