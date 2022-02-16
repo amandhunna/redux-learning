@@ -31,7 +31,7 @@ async function run() {
         body: message
       });
  */
-      const new_comment =  await octokit.request('GET /issues')
+      const new_comment =  await octokit.request('GET repos/amandhunna/redux-learning/issues')
  /*      const new_comment = await octokit.request(`POST /${owner}/${repo}/pull/${pull_request_number}/comments`, {
         owner: owner,
         repo: repo,
