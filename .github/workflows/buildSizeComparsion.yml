@@ -23,7 +23,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         message: "Hello, It's my first comment with Github action !"
         GITHUB_TOKEN: ${{ secrets.token }}
-        message: "this is a message"
       env:
         super_secret: ${{secrets.token}}
     - run: npm i
