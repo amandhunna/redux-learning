@@ -24,8 +24,8 @@ async function run() {
     
     console.log("====", Object.entries(context), context.actor, context.repository)
     const new_comment = await octokit.rest.issues.createComment({
-        owner: context?.actor || "amandhunna",
-        repo: context?.repository?.name || "redux-learning",
+        owner: "amandhunna",
+        repo:  "redux-learning",
         issue_number: pull_request_number,
         body: message
       });
