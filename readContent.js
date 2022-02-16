@@ -29,14 +29,14 @@ async function run() {
         body: message
       });
  */
-
-      const new_comment = await octokit.request(`POST /repos/${owner}/${repo}/issues/${pull_request_number}/comments`, {
+      const new_comment =  await octokit.request('GET /issues')
+ /*      const new_comment = await octokit.request(`POST /${owner}/${repo}/pull/${pull_request_number}/comments`, {
         owner: owner,
         repo: repo,
         issue_number: pull_request_number,
         body: 'body'
       });
-
+ */
     console.log("-----new", new_comment);
 
   } catch (error) {
