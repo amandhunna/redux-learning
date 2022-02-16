@@ -22,9 +22,9 @@ async function run() {
     console.log("----",
     Object.keys(octokit));
     
-    console.log("====", Object.entries(context), context.actor, context.repository)
+    console.log("====", Object.entries(context))
     const new_comment = await octokit.rest.issues.createComment({
-        owner: "amandhunna",
+        owner: context.actor,
         repo:  "redux-learning",
         issue_number: pull_request_number,
         body: message
