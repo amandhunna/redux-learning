@@ -5,6 +5,14 @@ const github = require('@actions/github');
 // console.log("github", github);
 // console.log("process", process.env);
 
+const github_token = core.getInput('super_secret');
+const github_token2 = core.getInput('GITHUB_TOKEN');
+const message2 = core.getInput('message');
+
+console.log("message", message2);
+console.log("token", github_token, github_token2)
+
+
 async function run() {
   try {
     const message = "I am first comment"
@@ -43,4 +51,4 @@ async function run() {
   }
 }
 
-run();
+// run();
