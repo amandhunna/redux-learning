@@ -21,7 +21,7 @@ async function run() {
 
     const octokit = new github.getOctokit("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");
     console.log("----",Object.keys(octokit))
-    const new_comment = octokit.rest.issues.createComment({
+    const new_comment = await octokit.rest.issues.createComment({
         ...context.repo,
         issue_number: pull_request_number,
         body: message
