@@ -11,6 +11,9 @@ const message2 = core.getInput('message');
 
 console.log("message", message2);
 console.log("token", github_token, github_token2)
+console.log("--", process.env.message);
+console.log(github);
+console.log("core", core);
 
 
 async function run() {
