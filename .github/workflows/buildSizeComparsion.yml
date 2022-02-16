@@ -27,7 +27,7 @@ jobs:
         
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-    - run: echo "npm i"
-    - run: echo "node readContent.js"
+    - run: npm i
     - run: echo $message
+    - run: node readContent.js
   
