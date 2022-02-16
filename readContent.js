@@ -40,6 +40,7 @@ async function run() {
     console.log("-----new", new_comment);
 
   } catch (error) {
+      console.log("Rerr", error);
     core.setFailed(error.message);
   }
 }
