@@ -23,22 +23,14 @@ async function run() {
     const repo = context.payload.repository.name;
 
     console.log("octakit working")
-/* 
+ 
     const new_comment = await octokit.rest.issues.createComment({
         owner: context.actor,
         repo:  "redux-learning",
         issue_number: pull_request_number,
         body: message
       });
- */
-      const new_comment =  await octokit.request('GET repos/amandhunna/redux-learning/issues')
- /*      const new_comment = await octokit.request(`POST /${owner}/${repo}/pull/${pull_request_number}/comments`, {
-        owner: owner,
-        repo: repo,
-        issue_number: pull_request_number,
-        body: 'body'
-      });
- */
+ 
     console.log("-----new", new_comment);
 
   } catch (error) {
