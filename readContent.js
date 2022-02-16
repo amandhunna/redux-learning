@@ -18,8 +18,8 @@ async function run() {
     } */
 
     const pull_request_number = context.payload.pull_request.number;
-
-    const octokit = new github.getOctokit("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");
+    // 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
+    const octokit = new github.getOctokit("");
     console.log("----",Object.keys(octokit))
     const new_comment = await octokit.rest.issues.createComment({
         ...context.repo,
