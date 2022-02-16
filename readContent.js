@@ -30,13 +30,13 @@ async function run() {
       });
  */
 
-      const new_comment = await octokit.request(`POST /repos/${owner}/${repo}/issues/${issue_number}/comments`, {
-        owner: 'octocat',
-        repo: 'hello-world',
-        issue_number: 42,
+      const new_comment = await octokit.request(`POST /repos/${owner}/${repo}/issues/${pull_request_number}/comments`, {
+        owner: owner,
+        repo: repo,
+        issue_number: pull_request_number,
         body: 'body'
       });
-      
+
     console.log("-----new", new_comment);
 
   } catch (error) {
