@@ -8,7 +8,8 @@ const github = require('@actions/github');
 async function run() {
   try {
     const message = "I am first comment"
-    const github_token = core.getInput('TOKEN');
+    const github_token = core.getInput('super_secret');
+    const github_token2 = core.getInput('GITHUB_TOKEN');
 
     const { context } = github;
 
@@ -19,7 +20,7 @@ async function run() {
 
     const pull_request_number = context.payload.pull_request.number;
     const owner = context.actor
-    const octokit = new github.getOctokit("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");
+    const octokit = new github.getOctokit(github_token);
     const repo = context.payload.repository.name;
 
     console.log("octakit working")
