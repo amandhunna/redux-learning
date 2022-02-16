@@ -18,11 +18,12 @@ console.log( "super_secret==", process.env.super_secret);
 async function run() {
   try {
     const message = `
-    | First Header  | Second Header |
-    | ------------- | ------------- |
-    | Content Cell  | Content Cell  |
-    | Content Cell  | Content Cell  |`;
-
+    <table>
+        <th>1</th>
+        <th>2</th>
+        <td>we</td>
+        <td>67</td>
+    </table> `;
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
