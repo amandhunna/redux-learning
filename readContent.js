@@ -21,6 +21,8 @@ async function run() {
     const owner = context.actor
     const octokit = new github.getOctokit("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");
     const repo = context.payload.repository.name;
+
+    console.log("octakit working")
 /* 
     const new_comment = await octokit.rest.issues.createComment({
         owner: context.actor,
