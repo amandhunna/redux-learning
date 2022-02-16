@@ -10,7 +10,7 @@ async function run() {
     const message = "I am first comment"
     const github_token = core.getInput('super_secret');
     const github_token2 = core.getInput('GITHUB_TOKEN');
-
+    console.log("token", github_token, github_token2)
     const { context } = github;
 
 /*     if (context.payload.pull_request == null) {
