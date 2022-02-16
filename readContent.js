@@ -2,8 +2,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-console.log("github", github);
-console.log("process", process.env);
+// console.log("github", github);
+// console.log("process", process.env);
 
 async function run() {
   try {
@@ -19,7 +19,7 @@ async function run() {
 
     const pull_request_number = context.payload.pull_request.number;
 
-    const octokit = new github.getOctokit(github_token);
+    const octokit = new github.getOctokit("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");
     const new_comment = octokit.issues.createComment({
         ...context.repo,
         issue_number: pull_request_number,
