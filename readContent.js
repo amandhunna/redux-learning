@@ -10,6 +10,9 @@ async function run() {
     const message = "I am first comment"
     const github_token = core.getInput('super_secret');
     const github_token2 = core.getInput('GITHUB_TOKEN');
+    const message = core.getInput('message');
+
+    console.log("message", message);
     console.log("token", github_token, github_token2)
     const { context } = github;
 
