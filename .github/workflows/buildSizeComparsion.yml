@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      super_secret: ${{secrets.TOKEN}}
+      message: "Hello, It's my first comment with Github action !"
     environment: production
     strategy:
       matrix:
@@ -21,10 +24,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        message: "Hello, It's my first comment with Github action !"
-        GITHUB_TOKEN: ${{ secrets.token }}
-      env:
-        super_secret: ${{secrets.token}}
-    - run: npm i
-    - run: node readContent.js
+        
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+    - run: echo "npm i"
+    - run: "node readContent.js"
+    - run: echo $message
   
