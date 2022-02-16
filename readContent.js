@@ -13,19 +13,12 @@ console.log("message", message2);
 console.log("token", github_token, github_token2)
 console.log("--", process.env.message);
 console.log( "super_secret==", process.env.super_secret);
-console.log("-=-=--GITHUB_TOKEN---", process.env.GITHUB_TOKEN);
-console.log("core", core);
 
 
 async function run() {
   try {
     const message = "I am first comment"
-    const github_token = core.getInput('super_secret');
-    const github_token2 = core.getInput('GITHUB_TOKEN');
-    const message2 = core.getInput('message');
 
-    console.log("message", message2);
-    console.log("token", github_token, github_token2)
     const { context } = github;
 
 /*     if (context.payload.pull_request == null) {
@@ -35,13 +28,13 @@ async function run() {
 
     const pull_request_number = context.payload.pull_request.number;
     const owner = context.actor
-    const octokit = new github.getOctokit(github_token);
+    const octokit = new github.getOctokit(process.env.super_secret);
     const repo = context.payload.repository.name;
 
     console.log("octakit working")
  
     const new_comment = await octokit.rest.issues.createComment({
-        owner: context.actor,
+        owner: owner,
         repo:  "redux-learning",
         issue_number: pull_request_number,
         body: message
