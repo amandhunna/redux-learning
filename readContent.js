@@ -24,7 +24,7 @@ async function run() {
     
     console.log("====", Object.entries(context), context.actor, context.repository.name)
     const new_comment = await octokit.rest.issues.createComment({
-        owner: context.actor
+        owner: context.actor,
         repo: context.repository.name,
         issue_number: pull_request_number,
         body: message
