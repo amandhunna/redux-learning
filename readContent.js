@@ -17,11 +17,15 @@ console.log( "super_secret==", process.env.super_secret);
 
 async function run() {
   try {
-    const message = "I am first comment"
+    const message = `
+    | First Header  | Second Header |
+    | ------------- | ------------- |
+    | Content Cell  | Content Cell  |
+    | Content Cell  | Content Cell  |`;
 
     const { context } = github;
 
-/*     if (context.payload.pull_request == null) {
+/*  if (context.payload.pull_request == null) {
         core.setFailed('No pull request found.');
         return;
     } */
