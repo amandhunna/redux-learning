@@ -20,8 +20,8 @@ async function run() {
     const pull_request_number = context.payload.pull_request.number;
 
     const octokit = new github.getOctokit("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");
-    console.log("----",octokit)
-    const new_comment = octokit.issues.createComment({
+    console.log("----",Object.keys(octokit))
+    const new_comment = octokit.rest.issues.createComment({
         ...context.repo,
         issue_number: pull_request_number,
         body: message
