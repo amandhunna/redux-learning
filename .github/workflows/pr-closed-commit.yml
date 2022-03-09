@@ -39,6 +39,7 @@ jobs:
         # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
+        git remote set-url origin "git@github.com:${{ github.repository }}"
         git fetch --all
     
     - name: commit
@@ -46,7 +47,7 @@ jobs:
         # Stage the file, commit and push
         git add .
         git commit -m "updated buid size"
-        git push origin main
+        git push
 
 
     
