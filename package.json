@@ -3,24 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
-    "react-scripts": "4.0.3",
-    "redux": "^4.1.2",
-    "redux-observable": "^2.0.0",
-    "redux-thunk": "^2.4.0",
-    "web-vitals": "^1.1.2"
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:size": " du -sh ./build/* >> masterBuild.txt"
+    "build:size": " du -hc ./build/* >> masterBuild.txt"
   },
   "eslintConfig": {
     "extends": [
@@ -39,8 +30,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@actions/core": "^1.6.0"
   }
 }

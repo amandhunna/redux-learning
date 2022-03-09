@@ -1,12 +1,19 @@
 name: Build size comparsion
 
 on:
+  push:
+    branches: [ pr-comment-silent ]
+  
   pull_request:
-    branches: [ main ]
+    branches: [ main-silent ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      super_secret: ${{secrets.TOKEN}}
+      message: "Hello, It's my first comment with Github action !"
+    environment: production
     strategy:
       matrix:
         node-version: [12.x]
@@ -17,10 +24,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: mkdir -p artifact
-    - run: du -hc ./build > artifact/current.txt
-    - run: node readContent.js  $(cat artifact/current.txt)
+
+    - run: npm i
+    - run: echo $message
+    - run: node readContent.js
   
