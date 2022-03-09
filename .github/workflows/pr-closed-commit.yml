@@ -4,8 +4,8 @@ name: merge commit - build files size
 
 on:
   pull_request:
-    types:
-      - closed
+    # types:
+      # - closed
     branches:    
       - 'main'
 
