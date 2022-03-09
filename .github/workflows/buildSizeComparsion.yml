@@ -5,7 +5,7 @@ on:
     branches: [ pr-comment-silent ]
   
   pull_request:
-    branches: [ main ]
+    branches: [ main-silent ]
 
 jobs:
   build:
