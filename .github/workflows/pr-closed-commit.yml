@@ -19,6 +19,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
+        SSH: ${{ secrets.SSH }}
         NODE_ENV: production
     steps:
     - uses: actions/checkout@v2
@@ -31,15 +32,10 @@ jobs:
     # - run: npm ci
     # - run: npm run build --if-present
 
-    - name: chck
-      run: |
-        cat ${{ secrets.SSH }}
-        cat ${{ secrets.TESTINGTOKEN }}
-
     - name: Setting up ssh
       uses: webfactory/ssh-agent@v0.4.1
       with:
-        ssh-private-key: ${{ secrets.SSH }}
+        ssh-private-key: ${SSH}
 
         
     - name: save current build size
