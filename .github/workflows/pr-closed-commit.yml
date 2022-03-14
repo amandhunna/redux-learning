@@ -35,6 +35,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.4.1
       with:
         ssh-private-key: ${{ secrets.SSH }}
+        NODE_ENV: production
         
     - name: save current build size
       # working-directory: ./src
