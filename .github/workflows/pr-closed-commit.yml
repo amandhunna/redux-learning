@@ -38,7 +38,7 @@ jobs:
         echo $TOKEN >> c.txt
         echo "here i am" >> c.txt
         cat c.txt
-        node readContent.js
+        node console.js
 
 
     - name: Setting up ssh
