@@ -40,8 +40,8 @@ jobs:
     - name: setup git config
       run: |
         # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
+        git config user.name amandhunna
+        git config user.email amandhunna.dev@gmail.com
         git remote set-url origin "git@github.com:${{ github.repository }}"
         git fetch --all
     
