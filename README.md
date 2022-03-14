@@ -16,3 +16,8 @@
 
 - https://lannonbr.com/blog/2019-12-09-git-commit-in-actions (for push)
 - https://octokit.github.io/rest.js/v18
+
+------------
+
+## github envs
+ - https://stackoverflow.com/questions/67972124/github-return-empty-string-as-secrets-while-running-actions
