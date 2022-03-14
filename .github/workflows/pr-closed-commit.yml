@@ -21,55 +21,29 @@ jobs:
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
-        NODE_ENV: production
+
     steps:
-    - uses: actions/checkout@v2
-    # - run: git fetch --prune --unshallow
-    # - name: Use Node.js ${{ matrix.node-version }}
-      # uses: actions/setup-node@v2
-      # with:
-        # node-version: ${{ matrix.node-version }}
-        # cache: 'npm'
-    # - run: npm ci
-    # - run: npm run build --if-present
+        - uses: actions/checkout@v2
+        # - uses: actions/setup-node@v1
+          # with:
+              # node-version: 14.11.0
+        - run: git fetch --prune --unshallow
 
-    - name: check
-      run: |
-        echo $SSH >> c.txt
-        echo $TOKEN >> c.txt
-        echo "here i am" >> c.txt
-        cat c.txt
-        # node console.js
-
-
-    - name: Setting up ssh
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.SSH }}
-
+        - name: Setting up
+          uses: webfactory/ssh-agent@v0.4.1
+          with:
+              ssh-private-key: ${{ secrets.SSH  }
+        - name: Create masterBuild.txt file
+          working-directory: "./packages/portal-mweb/"
+          run: |
+            echo "echo commit" > masterBuild.txt
         
-    - name: save current build size
-      # working-directory: ./src
-      run: |
-        # do some operation that changes a file in the git repo
-        # du -hc ./log > masterBuild.txt
-        echo "This is a log file" > log.txt
-
-    - name: setup git config
-      run: |
-        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-        git config user.name amandhunna
-        git config user.email amandhunna.dev@gmail.com
-        git remote set-url origin "git@github.com:${{ github.repository }}"
-        git remote -v
-        git fetch --all
-    
-    - name: commit
-      run: |
-        # Stage the file, commit and push
-        git add .
-        git commit -m "updated build size"
-        git push origin pr-commit
+        - name: Push to git
+          run: |
+              git config user.email "action@github.com"
+              git config user.name "GitHub Action"
+              git remote set-url origin "git@github.com:${{ github.repository }}"
+              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push`
 
 
     
