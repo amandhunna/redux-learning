@@ -32,7 +32,7 @@ jobs:
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
           with:
-              ssh-private-key: ${{ secrets.SSH  }
+              ssh-private-key: ${{ secrets.SSH  }}
         - name: Create masterBuild.txt file
           working-directory: "./packages/portal-mweb/"
           run: |
