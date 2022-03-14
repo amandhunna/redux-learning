@@ -35,7 +35,7 @@ jobs:
     - name: Setting up ssh
       uses: webfactory/ssh-agent@v0.4.1
       with:
-        ssh-private-key: ${SSH}
+        ssh-private-key: $(SSH)
 
         
     - name: save current build size
