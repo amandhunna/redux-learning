@@ -19,7 +19,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
-        SSH: ${{ secrets.SSH }}
+        SSH: "${{ secrets.SSH }}"
         NODE_ENV: production
     steps:
     - uses: actions/checkout@v2
