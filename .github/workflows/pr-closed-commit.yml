@@ -13,17 +13,17 @@ jobs:
   commitFile:
   # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # strategy:
+      # matrix:
+        # node-version: [ 12.x]
+        See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
         NODE_ENV: production
     steps:
     - uses: actions/checkout@v2
-    - run: git fetch --prune --unshallow
+    # - run: git fetch --prune --unshallow
     # - name: Use Node.js ${{ matrix.node-version }}
       # uses: actions/setup-node@v2
       # with:
