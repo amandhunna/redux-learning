@@ -33,8 +33,8 @@ jobs:
 
     - name: chck
       run: |
-        console.log(${{ secrets.SSH }})
-        console.log(${{ secrets.TESTINGTOKEN }})
+        cat ${{ secrets.SSH }}
+        cat ${{ secrets.TESTINGTOKEN }}
 
     - name: Setting up ssh
       uses: webfactory/ssh-agent@v0.4.1
