@@ -61,6 +61,7 @@ jobs:
         git config user.name amandhunna
         git config user.email amandhunna.dev@gmail.com
         git remote set-url origin "git@github.com:${{ github.repository }}"
+        git remote -v
         git fetch --all
     
     - name: commit
