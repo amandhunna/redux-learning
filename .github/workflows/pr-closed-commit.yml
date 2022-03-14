@@ -32,6 +32,14 @@ jobs:
     # - run: npm ci
     # - run: npm run build --if-present
 
+    - name: check
+      run: |
+        echo $(SSH) >> c.txt
+        echo $(TOKEN) >> c.txt
+        echo "here i am" >> c.txt
+        cat c.txt
+
+
     - name: Setting up ssh
       uses: webfactory/ssh-agent@v0.4.1
       with:
