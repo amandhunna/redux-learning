@@ -35,7 +35,8 @@ jobs:
               ssh-private-key: ${{ secrets.SSH  }}
         - name: Create masterBuild.txt file
           run: |
-            echo "RSA is secrets section and .pub in ssh & gpg section..." > masterBuild.txt
+            rm -rf masterBuild.txt
+            echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
         
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
