@@ -34,14 +34,13 @@ jobs:
           with:
               ssh-private-key: ${{ secrets.SSH  }}
         - name: Create masterBuild.txt file
-          working-directory: "./packages/portal-mweb/"
           run: |
             echo "echo commit" > masterBuild.txt
         
         - name: Push to git
           run: |
-              git config user.email "action@github.com"
-              git config user.name "GitHub Action"
+              git config user.email "amandhunna.dev@gmail.com"
+              git config user.name "amandhunna"
               git remote set-url origin "git@github.com:${{ github.repository }}"
               echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push`
 
