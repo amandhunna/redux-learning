@@ -4,15 +4,15 @@ name: merge commit - build files size
 
 on:
   pull_request:
-    # types:
-      # - closed
+     types:
+      - closed
     branches:    
       - 'main'
 
 jobs:
   commitFile:
     environment: production
-  # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     # strategy:
       # matrix:
