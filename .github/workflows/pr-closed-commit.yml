@@ -51,11 +51,11 @@ jobs:
               git config user.email "amandhunna.dev@gmail.com"
               git config user.name "amandhunna"
               git remote set-url origin "git@github.com:${{ github.repository }}"
-              # git fetch
-              # git checkout -- .
-              # git checkout --track origin/$(echo $GITHUB_HEAD_REF | cut -d'/' -f 3)
+              git fetch
+              git checkout -- .
+              git checkout --track origin/$(echo $GITHUB_HEAD_REF | cut -d'/' -f 3)
               echo $GITHUB_HEAD_REF
-              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push`
+              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_HEAD_REF`
 
 
     
