@@ -62,8 +62,8 @@ jobs:
               git config user.name "amandhunna"
               git remote set-url origin "git@github.com:${{ github.repository }}"
               git fetch
-              git checkout -- .
-              git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
+              # git checkout -- .
+              # git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
               echo "current as head" $GITHUB_HEAD_REF
               echo "master as base" $GITHUB_BASE_REF
               echo "hello world 2" > commit.txt
