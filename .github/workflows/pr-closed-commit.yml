@@ -34,11 +34,19 @@ jobs:
           with:
               ssh-private-key: ${{ secrets.SSH  }}
 
-        - name: Create masterBuild.txt file
+        - name: Create masterBuild.txt file and GIT variables
           run: |
-            rm -rf masterBuild.txt
-            echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
-        
+            # rm -rf masterBuild.txt
+            # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
+            
+            echo master  ${{github.base_ref}} $GITHUB_BASE_REF
+            echo current ${{github.head_ref}} $GITHUB_HEAD_REF
+            
+            echo PR ${{github.ref_name}}
+            echo ${{github.repository}}
+            echo ${{github.repositoryUrl}}
+
+
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
 
@@ -55,10 +63,8 @@ jobs:
               git remote set-url origin "git@github.com:${{ github.repository }}"
               git fetch
               git checkout -- .
-              git checkout --track origin/$(echo $GITHUB_HEAD_REF | cut -d'/' -f 3)
-              echo $GITHUB_HEAD_REF
-              echo "hello world" > commit.txt
-              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_HEAD_REF`
-
-
-    
+              git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
+              echo "current as head" $GITHUB_HEAD_REF
+              echo "master as base" $GITHUB_BASE_REF
+              echo "hello world 2" > commit.txt
+              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
