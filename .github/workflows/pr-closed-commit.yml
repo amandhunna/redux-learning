@@ -4,47 +4,61 @@ name: merge commit - build files size
 
 on:
   pull_request:
-    types:
+     types:
       - closed
-    branches:    
+     branches:    
       - 'main'
 
 jobs:
   commitFile:
+    environment: production
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # strategy:
+      # matrix:
+        # node-version: [ 12.x]
+        #See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    env:
+        TOKEN: ${{ secrets.TESTINGTOKEN }}
+        SSH: "${{ secrets.SSH }}"
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # - run: npm ci
-    # - run: npm run build --if-present
+        - uses: actions/checkout@v2
+        # - uses: actions/setup-node@v1
+          # with:
+              # node-version: 14.11.0
+        - run: git fetch --prune --unshallow
 
-    - name: save current build size
-      working-directory: ./src
-      run: |
-        # do some operation that changes a file in the git repo
-        # du -hc ./log > masterBuild.txt
-        echo "This is a log file" > log.txt
+        - name: Setting up
+          uses: webfactory/ssh-agent@v0.4.1
+          with:
+              ssh-private-key: ${{ secrets.SSH  }}
 
-    - name: setup git config
-      run: |
-        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-    
-    - name: commit
-      run: |
-        # Stage the file, commit and push
-        git add .
-        git commit -m "updated buid size"
-        git push origin main
+        - name: Create masterBuild.txt file
+          run: |
+            rm -rf masterBuild.txt
+            echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
+        
+        - name: check current branch name
+          run: git rev-parse --abbrev-ref HEAD
+
+        - name: check Head ref
+          run: echo $GITHUB_HEAD_REF
+
+        - name: check cut name
+          run: echo $GITHUB_HEAD_REF | cut -d'/' -f 3
+
+        - name: Push to git
+          run: |
+              git config user.email "amandhunna.dev@gmail.com"
+              git config user.name "amandhunna"
+              git remote set-url origin "git@github.com:${{ github.repository }}"
+              git fetch
+              git checkout -- .
+              git checkout --track origin/$(echo $GITHUB_HEAD_REF | cut -d'/' -f 3)
+              echo $GITHUB_HEAD_REF
+              echo "hello world" > commit.txt
+              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_HEAD_REF`
 
 
     

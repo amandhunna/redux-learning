@@ -9,10 +9,10 @@ const github_token = core.getInput('super_secret');
 const github_token2 = core.getInput('GITHUB_TOKEN');
 const message2 = core.getInput('message');
 
-console.log("message", message2);
-console.log("token", github_token, github_token2)
-console.log("--", process.env.message);
-console.log( "super_secret==", process.env.super_secret);
+// console.log("message", message2);
+// console.log("token", github_token, github_token2)
+console.log("--", process.env);
+// console.log( "super_secret==", process.env.super_secret);
 
 
 async function run() {
@@ -53,4 +53,4 @@ async function run() {
   }
 }
 
-run();
+//run();
