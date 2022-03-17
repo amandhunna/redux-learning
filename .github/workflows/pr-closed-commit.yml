@@ -36,7 +36,7 @@ jobs:
               ssh-private-key: ${{ secrets.SSH  }}
 
         - name: Create masterBuild.txt file and GIT variables, check working with LABELS
-          if: contains(github.event.pull_request.labels.*.name, 'web')
+          if: contains(github.event.pull_request.labels.*.name, 'web2')
           run: |
             # rm -rf masterBuild.txt
             # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
