@@ -7,4 +7,4 @@ const { labels } = github.context.payload.pull_request
 console.log("----github",Object.values(labels))
 
 const requiredLabel = labels.filter(item => item.name === "web");
-console.log(requiredLabel[0].name)
+console.log("label name, -----",requiredLabel[0].name)
