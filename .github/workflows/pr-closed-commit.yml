@@ -12,7 +12,7 @@ on:
 jobs:
   commitFile:
     environment: production
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     # if: contains(github.event.pull_request.labels.*.name, 'web')
     runs-on: ubuntu-latest
     # strategy:
@@ -64,15 +64,15 @@ jobs:
             node console.js
             echo github.event.pull_request.labels
 
-        - name: Push to git
-          run: |
-              git config user.email "amandhunna.dev@gmail.com"
-              git config user.name "amandhunna"
-              git remote set-url origin "git@github.com:${{ github.repository }}"
-              git fetch
-              # git checkout -- .
-              # git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
-              echo "current as head" $GITHUB_HEAD_REF
-              echo "master as base" $GITHUB_BASE_REF
-              echo "hello world 2" > commit.txt
-              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
+        # - name: Push to git
+          # run: |
+              # git config user.email "amandhunna.dev@gmail.com"
+              # git config user.name "amandhunna"
+              # git remote set-url origin "git@github.com:${{ github.repository }}"
+              # git fetch
+              git checkout -- .
+              git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
+              # echo "current as head" $GITHUB_HEAD_REF
+              # echo "master as base" $GITHUB_BASE_REF
+              # echo "hello world 2" > commit.txt
+              # echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
