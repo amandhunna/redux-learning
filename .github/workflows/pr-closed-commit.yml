@@ -4,8 +4,8 @@ name: merge commit - build files size
 
 on:
   pull_request:
-     types:
-      - closed
+    #  types:
+      # - closed
      branches:    
       - 'main'
 
@@ -25,9 +25,9 @@ jobs:
 
     steps:
         - uses: actions/checkout@v2
-        # - uses: actions/setup-node@v1
-          # with:
-              # node-version: 14.11.0
+        - uses: actions/setup-node@v1
+          with:
+              node-version: 14.11.0
         - run: git fetch --prune --unshallow
 
         - name: Setting up
@@ -57,6 +57,12 @@ jobs:
 
         - name: check cut name
           run: echo $GITHUB_HEAD_REF | cut -d'/' -f 3
+
+        - name: run node file
+          run: |
+            npm i
+            node console.js
+            echo github.event.pull_request.labels
 
         - name: Push to git
           run: |
