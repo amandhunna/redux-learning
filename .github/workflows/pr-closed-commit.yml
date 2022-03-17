@@ -13,6 +13,7 @@ jobs:
   commitFile:
     environment: production
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    # if: contains(github.event.pull_request.labels.*.name, 'web')
     runs-on: ubuntu-latest
     # strategy:
       # matrix:
@@ -41,6 +42,7 @@ jobs:
             
             echo master  ${{github.base_ref}} $GITHUB_BASE_REF
             echo current ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo github.event.pull_request.labels
             
             echo PR ${{github.ref_name}}
             echo ${{github.repository}}
