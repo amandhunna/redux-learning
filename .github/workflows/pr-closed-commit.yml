@@ -4,15 +4,16 @@ name: merge commit - build files size
 
 on:
   pull_request:
-     types:
-      - closed
+    #  types:
+      # - closed
      branches:    
       - 'main'
 
 jobs:
   commitFile:
     environment: production
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    # if: contains(github.event.pull_request.labels.*.name, 'web')
     runs-on: ubuntu-latest
     # strategy:
       # matrix:
@@ -21,31 +22,49 @@ jobs:
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
-
+  
     steps:
         - uses: actions/checkout@v2
-        # - uses: actions/setup-node@v1
-          # with:
-              # node-version: 14.11.0
-        - run: git fetch --prune --unshallow
+        - uses: actions/setup-node@v1
+          with:
+              node-version: 14.11.0
+        # - run: git fetch --prune --unshallow
+
+        - name: Creating env packagePath and assigning value to it
+          run: |
+            if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
+            then
+              echo "packagePath=src" >> $GITHUB_ENV
+              echo "path set to the dweb"
+            else
+              echo path=public >> $GITHUB_ENV
+              echo "packagePath set to the mweb"
+            fi
+
+        - name: dir
+          working-directory: ${{env.packagePath}}
+          run : ls
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
           with:
               ssh-private-key: ${{ secrets.SSH  }}
 
-        - name: Create masterBuild.txt file and GIT variables
+        - name: Create masterBuild.txt file and GIT variables, check working with LABELS
+          if: contains(github.event.pull_request.labels.*.name, 'web')
           run: |
             # rm -rf masterBuild.txt
             # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
             
-            echo master  ${{github.base_ref}} $GITHUB_BASE_REF
-            echo current ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
+            echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo labels-- ${{github.event.pull_request.labels}}
             
-            echo PR ${{github.ref_name}}
-            echo ${{github.repository}}
-            echo ${{github.repositoryUrl}}
-
+            echo PR-- ${{github.ref_name}}
+            echo Repo--${{github.repository}}
+            echo Repo url-- ${{github.repositoryUrl}}
+            echo isWeb Label-- ${{ github.event.label.name == 'web' }}
+            echo Label name-- ${{ github.event.label.name}} # does not work
 
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
@@ -56,7 +75,22 @@ jobs:
         - name: check cut name
           run: echo $GITHUB_HEAD_REF | cut -d'/' -f 3
 
+        - name: Get labels
+          run: |
+            npm i
+            node console.js
+            echo $github.event.pull_request.labels
+
+        - name: Create build and masterBuildSize.txt file
+          working-directory: "./${{env.packagePath}}/"
+          run: |
+              du -hc ./* > masterBuildSize.txt 
+
+        - name: move masterBuildSize to stats folder
+          run: mv ./${{env.packagePath}}/masterBuildSize.txt ./stats/
+
         - name: Push to git
+          if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
           run: |
               git config user.email "amandhunna.dev@gmail.com"
               git config user.name "amandhunna"
