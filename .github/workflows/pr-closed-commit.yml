@@ -33,13 +33,15 @@ jobs:
         # - run: git fetch --prune --unshallow
 
         - run: |
-            if ${packagePath} == true; then
-              echo "path=dweb" >> $GITHUB_ENV
-              echo "path set to the dweb
-            else
-              echo "path=mweb" >> $GITHUB_ENV
-              echo "path set to the mweb"
-            fi
+            echo "path=dweb" >> $GITHUB_ENV
+            echo "path=dweb"
+            # if ${packagePath} == true; then
+              # echo "path=dweb" >> $GITHUB_ENV
+              # echo "path set to the dweb
+            # else
+              # echo "path=mweb" >> $GITHUB_ENV
+              # echo "path set to the mweb"
+            # fi
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
