@@ -49,8 +49,13 @@ jobs:
             echo Repo--${{github.repository}}
             echo Repo url-- ${{github.repositoryUrl}}
             echo isWeb Label-- ${{ github.event.label.name == 'web' }}
-            echo Label name-- ${{ github.event.label.name}}
+            echo Label name-- ${{ github.event.label.name}} # does not work
 
+        - name: Creating and assigning value to a variable
+          run: |
+            isWeb = contains(github.event.pull_request.labels.*.name, 'web')
+            echo -- ${{isWeb}}
+            echo --d $isWeb
 
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
