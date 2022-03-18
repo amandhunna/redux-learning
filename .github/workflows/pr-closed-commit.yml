@@ -45,9 +45,9 @@ jobs:
               echo "packagePath set to the mweb"
             fi
 
-        - name: dir
-          working-directory: ./${packagePath}
-          run : ls
+        # - name: dir
+          # working-directory: ./${packagePath}
+          # run : ls
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
