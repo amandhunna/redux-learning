@@ -34,7 +34,7 @@ jobs:
         - run: |
             if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
-              echo "packagePath=./src" >> $GITHUB_ENV
+              echo "packagePath=src" >> $GITHUB_ENV
               echo "path set to the dweb"
             else
               echo path=public >> $GITHUB_ENV
@@ -80,6 +80,14 @@ jobs:
             npm i
             node console.js
             echo $github.event.pull_request.labels
+
+        - name: Create build and masterBuildSize.txt file
+          working-directory: "./${{env.packagePath}}/"
+          run: |
+              du -hc ./* > masterBuildSize.txt 
+
+            - name: move masterBuildSize to stats folder
+              run: mv ./${{env.packagePath}}/masterBuildSize.txt ./stats/${{env.packagePath}}/
 
         - name: Push to git
           if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
