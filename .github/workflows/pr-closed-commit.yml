@@ -46,7 +46,7 @@ jobs:
             fi
 
         - name: dir
-          working-directory: $packagePath
+          working-directory: packagePath
           run : ls
 
         - name: Setting up
