@@ -35,6 +35,7 @@ jobs:
         - run: |
             # echo "path=dweb" >> $GITHUB_ENV
             # echo "path=dweb"
+            echo ${packagePath} == true
             if [${packagePath} == true]
             then
               echo "path=dweb" >> $GITHUB_ENV
