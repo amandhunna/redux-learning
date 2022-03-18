@@ -41,15 +41,15 @@ jobs:
             # rm -rf masterBuild.txt
             # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
             
-            echo master  ${{github.base_ref}} $GITHUB_BASE_REF
-            echo current ${{github.head_ref}} $GITHUB_HEAD_REF
-            echo github.event.pull_request.labels
+            echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
+            echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo labels-- ${{github.event.pull_request.labels}}
             
-            echo PR ${{github.ref_name}}
-            echo ${{github.repository}}
-            echo ${{github.repositoryUrl}}
-            echo ${{ github.event.label.name == 'bug' }}
-            echo ${{ github.event.label.name}}
+            echo PR-- ${{github.ref_name}}
+            echo Repo--${{github.repository}}
+            echo Repo url-- ${{github.repositoryUrl}}
+            echo isWeb Label-- ${{ github.event.label.name == 'web' }}
+            echo Label name-- ${{ github.event.label.name}}
 
 
         - name: check current branch name
