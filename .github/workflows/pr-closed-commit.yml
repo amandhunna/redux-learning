@@ -28,7 +28,7 @@ jobs:
         - uses: actions/setup-node@v1
           with:
               node-version: 14.11.0
-        - run: git fetch --prune --unshallow
+        # - run: git fetch --prune --unshallow
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
@@ -36,7 +36,7 @@ jobs:
               ssh-private-key: ${{ secrets.SSH  }}
 
         - name: Create masterBuild.txt file and GIT variables, check working with LABELS
-          if: contains(github.event.pull_request.labels.*.name, 'web2')
+          if: contains(github.event.pull_request.labels.*.name, 'web')
           run: |
             # rm -rf masterBuild.txt
             # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
@@ -48,6 +48,8 @@ jobs:
             echo PR ${{github.ref_name}}
             echo ${{github.repository}}
             echo ${{github.repositoryUrl}}
+            echo ${{ github.event.label.name == 'bug' }}
+            echo ${{ github.event.label.name}}
 
 
         - name: check current branch name
