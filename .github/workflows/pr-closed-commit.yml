@@ -38,7 +38,7 @@ jobs:
             echo ${packagePath}
             if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
-              echo "packagePath=src" >> $GITHUB_ENV
+              echo "packagePath=./src" >> $GITHUB_ENV
               echo "path set to the dweb"
             else
               echo path=public >> $GITHUB_ENV
@@ -46,7 +46,7 @@ jobs:
             fi
 
         - name: dir
-          working-directory: packagePath
+          working-directory: ${{env.packagePath}}
           run : ls
 
         - name: Setting up
