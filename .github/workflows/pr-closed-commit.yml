@@ -23,7 +23,7 @@ jobs:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
         packagePath: if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
-        yoyo: node ghujia.js
+        yoyo: ${{node ghujia.js}}
 
     steps:
         - uses: actions/checkout@v2
