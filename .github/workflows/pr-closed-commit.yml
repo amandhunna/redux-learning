@@ -22,9 +22,7 @@ jobs:
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
-        packagePath: ${{contains(github.event.pull_request.labels.*.name, 'web')}}
-
-
+  
     steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
@@ -32,10 +30,8 @@ jobs:
               node-version: 14.11.0
         # - run: git fetch --prune --unshallow
 
+        name: Creating env packagePath and assigning value to it
         - run: |
-            # echo "path=dweb" >> $GITHUB_ENV
-            # echo "path=dweb"
-            echo ${packagePath}
             if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
               echo "packagePath=./src" >> $GITHUB_ENV
@@ -70,13 +66,6 @@ jobs:
             echo isWeb Label-- ${{ github.event.label.name == 'web' }}
             echo Label name-- ${{ github.event.label.name}} # does not work
 
-        - name: Creating and assigning value to a variable
-          run: echo "-- $packagePath" # way to call self defined variables
-        #     echo "i am"
-        #     # isWeb = contains(github.event.pull_request.labels.*.name, 'web')
-        #     # echo -- ${{isWeb}}
-        #     # echo --d $isWeb
-
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
 
@@ -86,7 +75,7 @@ jobs:
         - name: check cut name
           run: echo $GITHUB_HEAD_REF | cut -d'/' -f 3
 
-        - name: run node file
+        - name: Get labels
           run: |
             npm i
             node console.js
