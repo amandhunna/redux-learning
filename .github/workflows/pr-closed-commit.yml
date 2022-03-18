@@ -54,7 +54,7 @@ jobs:
 
         - name: Creating and assigning value to a variable
           run: |
-            echo -- ${{packagePath}}
+            echo -- "${{packagePath}}"
             # isWeb = contains(github.event.pull_request.labels.*.name, 'web')
             # echo -- ${{isWeb}}
             # echo --d $isWeb
