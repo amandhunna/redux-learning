@@ -30,8 +30,8 @@ jobs:
               node-version: 14.11.0
         # - run: git fetch --prune --unshallow
 
-        name: Creating env packagePath and assigning value to it
-        - run: |
+        - name: Creating env packagePath and assigning value to it
+          run: |
             if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
               echo "packagePath=src" >> $GITHUB_ENV
