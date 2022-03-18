@@ -2,7 +2,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-// console.log("---core----", core);
+console.log("---core----", process.env);
 const { labels } = github.context.payload.pull_request
 console.log("----github",Object.values(labels))
 
