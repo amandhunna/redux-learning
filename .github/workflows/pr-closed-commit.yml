@@ -22,7 +22,7 @@ jobs:
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
-        packagePath: contains(github.event.pull_request.labels.*.name, 'web')
+        packagePath: ${{contains(github.event.pull_request.labels.*.name, 'web')}}
 
     steps:
         - uses: actions/checkout@v2
