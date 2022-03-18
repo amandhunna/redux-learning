@@ -23,14 +23,7 @@ jobs:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
         packagePath: ${{contains(github.event.pull_request.labels.*.name, 'web')}}
-    run: |
-      if ${packagePath} == true; then
-        echo "path=./dweb" >> $GITHUB_ENV
-        echo "path set to the dweb
-      else
-        echo "path=./mweb" >> $GITHUB_ENV
-        echo "path set to the mweb"
-      fi
+
 
     steps:
         - uses: actions/checkout@v2
@@ -38,6 +31,15 @@ jobs:
           with:
               node-version: 14.11.0
         # - run: git fetch --prune --unshallow
+
+        - run: |
+            if ${packagePath} == true; then
+              echo "path=./dweb" >> $GITHUB_ENV
+              echo "path set to the dweb
+            else
+              echo "path=./mweb" >> $GITHUB_ENV
+              echo "path set to the mweb"
+            fi
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
