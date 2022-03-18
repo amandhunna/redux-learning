@@ -34,10 +34,10 @@ jobs:
 
         - run: |
             if ${packagePath} == true; then
-              echo "path=./dweb" >> $GITHUB_ENV
+              echo "path=dweb" >> $GITHUB_ENV
               echo "path set to the dweb
             else
-              echo "path=./mweb" >> $GITHUB_ENV
+              echo "path=mweb" >> $GITHUB_ENV
               echo "path set to the mweb"
             fi
 
