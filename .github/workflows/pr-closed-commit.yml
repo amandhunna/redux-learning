@@ -22,6 +22,7 @@ jobs:
     env:
         TOKEN: ${{ secrets.TESTINGTOKEN }}
         SSH: "${{ secrets.SSH }}"
+        packagePath: contains(github.event.pull_request.labels.*.name, 'web')
 
     steps:
         - uses: actions/checkout@v2
@@ -53,9 +54,10 @@ jobs:
 
         - name: Creating and assigning value to a variable
           run: |
-            isWeb = contains(github.event.pull_request.labels.*.name, 'web')
-            echo -- ${{isWeb}}
-            echo --d $isWeb
+            echo -- ${{packagePath}}
+            # isWeb = contains(github.event.pull_request.labels.*.name, 'web')
+            # echo -- ${{isWeb}}
+            # echo --d $isWeb
 
         - name: check current branch name
           run: git rev-parse --abbrev-ref HEAD
