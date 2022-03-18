@@ -86,8 +86,8 @@ jobs:
           run: |
               du -hc ./* > masterBuildSize.txt 
 
-            - name: move masterBuildSize to stats folder
-              run: mv ./${{env.packagePath}}/masterBuildSize.txt ./stats/${{env.packagePath}}/
+        - name: move masterBuildSize to stats folder
+          run: mv ./${{env.packagePath}}/masterBuildSize.txt ./stats/${{env.packagePath}}/
 
         - name: Push to git
           if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
