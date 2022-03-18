@@ -35,15 +35,19 @@ jobs:
         - run: |
             # echo "path=dweb" >> $GITHUB_ENV
             # echo "path=dweb"
-            echo ${packagePath} == true
-            if [${packagePath}]
+            echo ${packagePath}
+            if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
-              echo "path=dweb" >> $GITHUB_ENV
+              echo "packagePath=src" >> $GITHUB_ENV
               echo "path set to the dweb"
             else
-              echo path=mweb >> $GITHUB_ENV
-              echo "path set to the mweb"
+              echo path=public >> $GITHUB_ENV
+              echo "packagePath set to the mweb"
             fi
+
+        - name: dir
+          working-directory: ./${packagePath}
+          run : ls
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
