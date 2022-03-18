@@ -53,7 +53,7 @@ jobs:
             echo Label name-- ${{ github.event.label.name}} # does not work
 
         - name: Creating and assigning value to a variable
-          run: echo "-- $packagePath"
+          run: echo "-- $packagePath" # way to call self defined variables
         #     echo "i am"
         #     # isWeb = contains(github.event.pull_request.labels.*.name, 'web')
         #     # echo -- ${{isWeb}}
