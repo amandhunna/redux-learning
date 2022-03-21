@@ -1,0 +1,22 @@
+{
+  "name": "lerna-context-webpack",
+  "version": "1.0.0",
+  "description": "learn combined working of lerna-context-webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amandhunna/redux-learning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amandhunna/redux-learning/issues"
+  },
+  "homepage": "https://github.com/amandhunna/redux-learning#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
