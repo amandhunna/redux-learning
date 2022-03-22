@@ -1,8 +1,9 @@
 {
-  "name": "main",
+  "name": "@aman/main",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aman/utils": "^1.0.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
