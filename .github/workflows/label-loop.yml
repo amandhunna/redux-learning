@@ -48,7 +48,6 @@ jobs:
         - name: check working with LABELS, ${{env.packagePath}}
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           # https://docs.github.com/en/actions/learn-github-actions/expressions#success
-          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |         
             echo ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             echo master--base_ref ${{github.base_ref}} $GITHUB_BASE_REF
