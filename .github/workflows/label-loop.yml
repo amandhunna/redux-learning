@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: label loop
+
+on:
+  pull_request:
+    #  types:
+      # - closed
+     branches:    
+      - 'main'
+
+jobs:
+  commitFile:
+    environment: production
+    runs-on: ubuntu-latest
+    env:
+        TOKEN: ${{ secrets.TESTINGTOKEN }}
+        SSH: "${{ secrets.SSH }}"
+  
+    # strategy:
+      # matrix:
+        # node-version: [ 12.x]
+        #See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+        - uses: actions/checkout@v2
+        # - uses: actions/setup-node@v1
+          # with:
+              # node-version: 14.11.0
+
+        - name: dir
+          working-directory: ${{env.packagePath}}
+          run : ls
+
+        - name: Create masterBuild.txt file and GIT variables, check working with LABELS
+          if: contains(github.event.pull_request.labels.*.name, 'web')
+          run: |         
+            echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
+            echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo labels-- ${{github.event.pull_request.labels}}
+
+        - name: IF - ELSE
+          run: |
+            if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
+            then
+              echo "path set to the dweb"
+            else
+              echo path=public >> $GITHUB_ENV
+            fi
+            
