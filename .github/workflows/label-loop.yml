@@ -26,7 +26,7 @@ jobs:
   
     strategy:
       matrix:
-        label: ${{github.event.pull_request.labels.*.name}}
+        label: ["bug", "web"] #${{github.event.pull_request.labels.*.name}}
         # node-version: [ 12.x]
     
     steps:
@@ -42,6 +42,7 @@ jobs:
             echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
             echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
             echo labels-- ${{github.event.pull_request.labels}}
+            echo matrix : ${{ matrix.node }}
 
         - name: IF - ELSE
           run: |
