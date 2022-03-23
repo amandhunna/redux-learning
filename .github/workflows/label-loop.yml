@@ -36,7 +36,7 @@ jobs:
           # with:
               # node-version: 14.11.0
         - name: set GIT ENV
-          run:  echo "packagePath=src" >> $GITHUB_ENV
+          run:  echo "packagePath=${{ matrix.label }}" >> $GITHUB_ENV
 
         - name: check working with LABELS, ${{env.packagePath}}
           # if: contains(github.event.pull_request.labels.*.name, 'web')
