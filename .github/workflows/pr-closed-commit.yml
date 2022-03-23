@@ -29,8 +29,11 @@ jobs:
         label: ["bug", "web"]
 
     steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
+        - name: setup checkout
+          uses: actions/checkout@v2
+
+        - name: setup node
+          uses: actions/setup-node@v1
           with:
               node-version: 14.11.0
         # - run: git fetch --prune --unshallow
