@@ -46,7 +46,7 @@ jobs:
 
         - name: IF - ELSE
           run: |
-            if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
+            if ${{contains(github.event.pull_request.labels.*.name, 'web', 'bug2')}}
             then
               echo ":::true"
             else
