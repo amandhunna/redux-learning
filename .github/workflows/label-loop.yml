@@ -33,7 +33,7 @@ jobs:
     steps:
         - name: check if required label is added to PR
           if: ${{contains(github.event.pull_request.labels.*.name, matrix.label) }}
-          run: echo "test label"
+          run: ${{contains(github.event.pull_request.labels.*.name, matrix.label) }}
         
         - name: setting up
           uses: actions/checkout@v2
