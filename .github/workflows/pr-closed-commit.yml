@@ -30,15 +30,21 @@ jobs:
 
     steps:
         - name: setup checkout
+          if: ${{ contains(github.event.pull_request.labels.*.name, matrix.label) }}
           uses: actions/checkout@v2
 
         - name: setup node
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           uses: actions/setup-node@v1
           with:
               node-version: 14.11.0
-        # - run: git fetch --prune --unshallow
+        
+        - name: Prune fetch
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          run: git fetch --prune --unshallow
 
         - name: Creating env packagePath and assigning value to it
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
             if [ ${{matrix.label}} = "bug" ]
             then
@@ -50,21 +56,25 @@ jobs:
             fi
 
         - name: Setting up
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           uses: webfactory/ssh-agent@v0.4.1
           with:
               ssh-private-key: ${{ secrets.SSH  }}
 
-        - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt 
+        - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           working-directory: "./${{env.packagePath}}/"
           run: |
               du -hc ./* > size-${{env.packagePath}}.txt 
 
         - name: move size-${{env.packagePath}}.txt  to stats folder
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
             ls
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
         - name: Push to git
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
           run: |
               git config user.email "amandhunna.dev@gmail.com"
