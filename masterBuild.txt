@@ -1,6 +1,0 @@
-44K	./build/static/media
-1K	./build/static/css
-8K	./build/static/js
-1M	./build/static
-13M	./build
-1M	total
