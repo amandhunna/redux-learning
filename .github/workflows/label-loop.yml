@@ -42,8 +42,8 @@ jobs:
           # if: contains(github.event.pull_request.labels.*.name, 'web')
           run: |         
             echo ${{contains(github.event.pull_request.labels.*.name, 'web')}}
-            echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
-            echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
+            echo master--base_ref ${{github.base_ref}} $GITHUB_BASE_REF
+            echo current--head_ref ${{github.head_ref}} $GITHUB_HEAD_REF
             echo labels-- ${{github.event.pull_request.labels}}
             echo matrix : ${{ matrix.label }}
 
