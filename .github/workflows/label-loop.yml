@@ -31,6 +31,8 @@ jobs:
         # node-version: [ 12.x]
     
     steps:
+        - name: check if required label is added to PR
+          if: ${{contains(github.event.pull_request.labels.*.name, ${{ matrix.label }})}}
         - uses: actions/checkout@v2
         # - uses: actions/setup-node@v1
           # with:
@@ -39,7 +41,7 @@ jobs:
           run:  echo "packagePath=${{ matrix.label }}" >> $GITHUB_ENV
 
         - name: check working with LABELS, ${{env.packagePath}}
-          # if: contains(github.event.pull_request.labels.*.name, 'web')
+          # if: contains(github.event.pull_request.labels.*.name, ${{ matrix.label }})
           run: |         
             echo ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             echo master--base_ref ${{github.base_ref}} $GITHUB_BASE_REF
