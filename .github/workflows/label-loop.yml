@@ -42,7 +42,7 @@ jobs:
             echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
             echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
             echo labels-- ${{github.event.pull_request.labels}}
-            echo matrix : ${{ matrix.node }}
+            echo matrix : ${{ matrix.label }}
 
         - name: IF - ELSE
           run: |
