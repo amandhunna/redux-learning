@@ -1,4 +1,5 @@
-# ref: https://blog.slashgear.dev/how-to-dynamically-run-step-on-each-github-pr-label/
+# ref matrix : https://blog.slashgear.dev/how-to-dynamically-run-step-on-each-github-pr-label/
+# ref shell  : https://www.journaldev.com/38145/if-else-in-shell-scripts#:~:text=Conditions%20in%20Shell%20Scripts&text=An%20if%2Delse%20statement%20allows,of%20statements%20using%20the%20result.
 
 name: label loop
 
@@ -46,8 +47,7 @@ jobs:
 
         - name: IF - ELSE
           run: |
-            # https://www.journaldev.com/38145/if-else-in-shell-scripts#:~:text=Conditions%20in%20Shell%20Scripts&text=An%20if%2Delse%20statement%20allows,of%20statements%20using%20the%20result.
-            if [${{matrix.label}}="bug"]
+            if [ ${{matrix.label}} = "bug" ]
             then
               echo "bug label"
             else
