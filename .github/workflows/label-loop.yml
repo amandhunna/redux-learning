@@ -46,7 +46,7 @@ jobs:
 
         - name: IF - ELSE
           run: |
-            if ["bug" -eq ${{matrix.label}}}
+            if ["bug" -eq ${{matrix.label }}]
             then
               echo "bug label"
             else
