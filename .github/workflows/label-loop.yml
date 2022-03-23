@@ -33,14 +33,20 @@ jobs:
     steps:
         - name: check if required label is added to PR
           if: ${{contains(github.event.pull_request.labels.*.name, ${{ matrix.label }})}}
-        - uses: actions/checkout@v2
+          run: echo "test label"
+        
+        - name: setting up
+          uses: actions/checkout@v2
         # - uses: actions/setup-node@v1
           # with:
               # node-version: 14.11.0
         - name: set GIT ENV
+          if: ${{ success() }}
           run:  echo "packagePath=${{ matrix.label }}" >> $GITHUB_ENV
 
         - name: check working with LABELS, ${{env.packagePath}}
+          if: ${{ success() }}
+          # https://docs.github.com/en/actions/learn-github-actions/expressions#success
           # if: contains(github.event.pull_request.labels.*.name, ${{ matrix.label }})
           run: |         
             echo ${{contains(github.event.pull_request.labels.*.name, 'web')}}
@@ -50,6 +56,7 @@ jobs:
             echo matrix : ${{ matrix.label }}
 
         - name: IF - ELSE
+          if: ${{ success() }}
           run: |
             if [ ${{matrix.label}} = "bug" ]
             then
