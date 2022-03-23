@@ -40,28 +40,24 @@ jobs:
             if [ ${{matrix.label}} = "bug" ]
             then
               echo "packagePath=src" >> $GITHUB_ENV
-              echo "path set to the dweb"
+              echo "path set to the src"
             else
               echo path=public >> $GITHUB_ENV
-              echo "packagePath set to the mweb"
+              echo "packagePath set to the public"
             fi
-
-        - name: dir
-          working-directory: ${{env.packagePath}}
-          run : ls
 
         - name: Setting up
           uses: webfactory/ssh-agent@v0.4.1
           with:
               ssh-private-key: ${{ secrets.SSH  }}
 
-        - name: Create build and masterBuildSize.txt file
+        - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt 
           working-directory: "./${{env.packagePath}}/"
           run: |
-              du -hc ./* > masterBuildSize.txt 
+              du -hc ./* > size-${{env.packagePath}}.txt 
 
-        - name: move masterBuildSize to stats folder
-          run: mv ./${{env.packagePath}}/masterBuildSize.txt ./stats/
+        - name: move size-${{env.packagePath}}.txt  to stats folder
+          run: mv ./${{env.packagePath}}/size-${{env.packagePath}}.txt ./stats/
 
         - name: Push to git
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -70,5 +66,5 @@ jobs:
               git config user.name "amandhunna"
               git remote set-url origin "git@github.com:${{ github.repository }}"
               git fetch
-              echo "hello world 2" > commit.txt
-              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
+              echo size-${{env.packagePath}}.txt  >> commit.txt
+              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_HEAD_REF`

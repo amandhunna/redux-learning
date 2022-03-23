@@ -6,7 +6,7 @@ name: label loop
 on:
   pull_request:
      branches:    
-      - 'main'
+      - 'main-silent'
 
 jobs:
   checkLabels:
