@@ -42,8 +42,8 @@ jobs:
           run: |
             if ${{contains(github.event.pull_request.labels.*.name, 'web')}}
             then
-              echo "path set to the dweb"
+              echo ":::true"
             else
-              echo path=public >> $GITHUB_ENV
+              echo ":::false"
             fi
             
