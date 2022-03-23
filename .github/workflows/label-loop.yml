@@ -27,13 +27,10 @@ jobs:
           # with:
               # node-version: 14.11.0
 
-        - name: dir
-          working-directory: ${{env.packagePath}}
-          run : ls
-
         - name: Create masterBuild.txt file and GIT variables, check working with LABELS
-          if: contains(github.event.pull_request.labels.*.name, 'web')
+          # if: contains(github.event.pull_request.labels.*.name, 'web')
           run: |         
+            echo contains(github.event.pull_request.labels.*.name, 'web')
             echo master--  ${{github.base_ref}} $GITHUB_BASE_REF
             echo current-- ${{github.head_ref}} $GITHUB_HEAD_REF
             echo labels-- ${{github.event.pull_request.labels}}
