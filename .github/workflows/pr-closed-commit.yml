@@ -57,7 +57,9 @@ jobs:
               du -hc ./* > size-${{env.packagePath}}.txt 
 
         - name: move size-${{env.packagePath}}.txt  to stats folder
-          run: mv ./${{env.packagePath}}/size-${{env.packagePath}}.txt ./stats/
+          run: |
+            ls
+            mv ./${{env.packagePath}}/size-${{env.packagePath}}.txt ./stats/
 
         - name: Push to git
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
