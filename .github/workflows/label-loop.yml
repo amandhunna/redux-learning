@@ -46,10 +46,10 @@ jobs:
 
         - name: IF - ELSE
           run: |
-            if ${{contains(github.event.pull_request.labels.*.name, 'web', 'bug2')}}
+            if ["bug" -eq ${{matrix.label}}}
             then
-              echo ":::true"
+              echo "bug label"
             else
-              echo ":::false"
+              echo "web label"
             fi
             
