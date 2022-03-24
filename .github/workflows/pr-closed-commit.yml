@@ -93,5 +93,5 @@ jobs:
       - run: echo Check labels is not empty
     
     - name: Commit files
-      working-directory: stats
+      # working-directory: stats
       run : ls 
