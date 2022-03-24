@@ -104,7 +104,11 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: [ size-src.txt, size-public.txt ]
+          name: size-src.txt
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: size-public.txt
     
       - name: Display structure of downloaded files
         run: ls -R
