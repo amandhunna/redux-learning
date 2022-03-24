@@ -90,6 +90,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [pre_commitFile]
     steps:    
+      - name: setup checkout
+        uses: actions/checkout@v2
+
       - name: Commit files
-       # working-directory: stats
+        working-directory: stats
         run : ls 
