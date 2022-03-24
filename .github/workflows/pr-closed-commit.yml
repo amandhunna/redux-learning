@@ -70,10 +70,13 @@ jobs:
         - name: move size-${{env.packagePath}}.txt  to stats folder
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
-            ls
-            npm i
-            node console.js
+            cat ${{env.packagePath}}/size-${{env.packagePath}}.txt
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
+
+
+        - name: Commit files
+          working-directory: stats
+          run : ls 
 
         # - name: Push to git
           # if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
