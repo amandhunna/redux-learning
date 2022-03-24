@@ -105,6 +105,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: size-src.txt
+          run: echo "files  "
 
       - uses: actions/download-artifact@v3
         with:
