@@ -9,8 +9,9 @@ on:
      branches:    
       - 'main'
 
-# environment: production #don't work
-if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+# environment: don't work here
+# if: don't work here
+
 env:
   TOKEN: ${{ secrets.TESTINGTOKEN }}
   SSH: "${{ secrets.SSH }}"
@@ -123,9 +124,6 @@ jobs:
 
       - name: move size-src.txt to the stats
         run: mv size-src.txt stats/
-    
-      # - name: Display structure of downloaded files
-        # run: ls -R
       
       - name: Commit files
         working-directory: stats
