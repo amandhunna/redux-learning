@@ -4,13 +4,13 @@ name: merge commit - build files size
 
 on:
   pull_request:
-    #  types:
-      # - closed
+     types:
+      - closed
      branches:    
       - 'main'
 
 # environment: production #don't work
-# if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 env:
   TOKEN: ${{ secrets.TESTINGTOKEN }}
   SSH: "${{ secrets.SSH }}"
