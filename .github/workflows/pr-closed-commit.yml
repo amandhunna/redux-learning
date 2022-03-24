@@ -10,61 +10,76 @@ on:
       - 'main'
 
 jobs:
+  checkLabels:
+    runs-on: ubuntu-latest
+    if: ${{github.event.pull_request.labels.*.name[0]}}
+    steps:
+      - run: echo Check labels is not empty
+
   commitFile:
+    needs: [checkLabels]
     environment: production
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    # strategy:
-      # matrix:
-        # node-version: [ 12.x]
-        #See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
-        TOKEN: ${{ secrets.TESTINGTOKEN }}
-        SSH: "${{ secrets.SSH }}"
+      TOKEN: ${{ secrets.TESTINGTOKEN }}
+      SSH: "${{ secrets.SSH }}"
+    strategy:
+      matrix:
+        label: ["bug", "web"]
 
     steps:
-        - uses: actions/checkout@v2
-        # - uses: actions/setup-node@v1
-          # with:
-              # node-version: 14.11.0
-        - run: git fetch --prune --unshallow
+        - name: setup checkout
+          if: ${{ contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          uses: actions/checkout@v2
+
+        - name: setup node
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          uses: actions/setup-node@v1
+          with:
+              node-version: 14.11.0
+        
+        - name: Prune fetch
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          run: git fetch --prune --unshallow
+
+        - name: Creating env packagePath and assigning value to it
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          run: |
+            if [ ${{matrix.label}} = "bug" ]
+            then
+              echo "packagePath=src" >> $GITHUB_ENV
+              echo "path set to the src"
+            else
+              echo path=public >> $GITHUB_ENV
+              echo "packagePath set to the public"
+            fi
 
         - name: Setting up
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           uses: webfactory/ssh-agent@v0.4.1
           with:
               ssh-private-key: ${{ secrets.SSH  }}
 
-        - name: Create masterBuild.txt file and GIT variables
+        - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          working-directory: "./${{env.packagePath}}/"
           run: |
-            # rm -rf masterBuild.txt
-            # echo "RSA is secrets section and .pub in ssh & gpg section..!." > masterBuild.txt
-            
-            echo master  ${{github.base_ref}} $GITHUB_BASE_REF
-            echo current ${{github.head_ref}} $GITHUB_HEAD_REF
-            
-            echo PR ${{github.ref_name}}
-            echo ${{github.repository}}
-            echo ${{github.repositoryUrl}}
+              du -hc ./* > size-${{env.packagePath}}.txt 
 
-
-        - name: check current branch name
-          run: git rev-parse --abbrev-ref HEAD
-
-        - name: check Head ref
-          run: echo $GITHUB_HEAD_REF
-
-        - name: check cut name
-          run: echo $GITHUB_HEAD_REF | cut -d'/' -f 3
+        - name: move size-${{env.packagePath}}.txt  to stats folder
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          run: |
+            ls
+            mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
         - name: Push to git
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) &&
+          # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
           run: |
               git config user.email "amandhunna.dev@gmail.com"
               git config user.name "amandhunna"
               git remote set-url origin "git@github.com:${{ github.repository }}"
               git fetch
-              # git checkout -- .
-              # git checkout --track origin/$(echo $GITHUB_BASE_REF | cut -d'/' -f 3)
-              echo "current as head" $GITHUB_HEAD_REF
-              echo "master as base" $GITHUB_BASE_REF
-              echo "hello world 2" > commit.txt
+              echo size-${{env.packagePath}}.txt  >> commit.txt
               echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
