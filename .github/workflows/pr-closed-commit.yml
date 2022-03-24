@@ -71,6 +71,7 @@ jobs:
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
             ls
+            node console.js
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
         - name: Push to git
