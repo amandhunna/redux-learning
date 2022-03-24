@@ -51,7 +51,7 @@ jobs:
               echo "packagePath=src" >> $GITHUB_ENV
               echo "path set to the src"
             else
-              echo path=public >> $GITHUB_ENV
+              echo packagePath=public >> $GITHUB_ENV
               echo "packagePath set to the public"
             fi
 
