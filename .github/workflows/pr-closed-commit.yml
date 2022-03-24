@@ -55,11 +55,11 @@ jobs:
               echo "packagePath set to the public"
             fi
 
-        - name: Setting up
-          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
-          uses: webfactory/ssh-agent@v0.4.1
-          with:
-              ssh-private-key: ${{ secrets.SSH  }}
+        # - name: Setting up
+          # if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          # uses: webfactory/ssh-agent@v0.4.1
+          # with:
+              # ssh-private-key: ${{ secrets.SSH  }}
 
         - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
@@ -74,11 +74,7 @@ jobs:
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
 
-        - name: Commit files
-          working-directory: stats
-          run : ls 
-
-        - name: Archive code coverage results
+        - name: Upload code folder size
           uses: actions/upload-artifact@v3
           with:
             name: size-${{env.packagePath}}.txt
@@ -101,6 +97,11 @@ jobs:
     steps:    
       - name: setup checkout
         uses: actions/checkout@v2
+
+      - name: Setting up
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH  }}
 
       - uses: actions/download-artifact@v3
         with:
@@ -126,3 +127,12 @@ jobs:
           cat size-public.txt
           cat size-src.txt
           git status
+
+        - name: Push to git
+          run: |
+            git config user.email "amandhunna.dev@gmail.com"
+            git config user.name "amandhunna"
+            git remote set-url origin "git@github.com:${{ github.repository }}"
+            git fetch
+            echo size-${{env.packagePath}}.txt  >> commit.txt
+            echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
