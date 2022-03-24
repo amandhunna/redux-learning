@@ -128,11 +128,11 @@ jobs:
           cat size-src.txt
           git status
 
-        - name: Push to git
-          run: |
-            git config user.email "amandhunna.dev@gmail.com"
-            git config user.name "amandhunna"
-            git remote set-url origin "git@github.com:${{ github.repository }}"
-            git fetch
-            echo size-${{env.packagePath}}.txt  >> commit.txt
-            echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
+      - name: Push to git
+        run: |
+          git config user.email "amandhunna.dev@gmail.com"
+          git config user.name "amandhunna"
+          git remote set-url origin "git@github.com:${{ github.repository }}"
+          git fetch
+          echo size-${{env.packagePath}}.txt  >> commit.txt
+          echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
