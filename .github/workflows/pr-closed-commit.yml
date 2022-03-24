@@ -74,7 +74,7 @@ jobs:
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
         - name: Push to git
-          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) &&
+          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label)
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
           run: |
               git config user.email "amandhunna.dev@gmail.com"
