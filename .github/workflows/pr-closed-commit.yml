@@ -9,7 +9,7 @@ on:
      branches:    
       - 'main'
 
-environment: production
+# environment: production #don't work
 # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 env:
   TOKEN: ${{ secrets.TESTINGTOKEN }}
@@ -24,7 +24,7 @@ jobs:
 
   pre_commitFile:
     needs: [checkLabels]
-    # environment: production
+    environment: production
     # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     # env:
@@ -98,6 +98,7 @@ jobs:
               # echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
 
   commitFile:
+    environment: production
     runs-on: ubuntu-latest
     needs: [pre_commitFile]
     steps:    
