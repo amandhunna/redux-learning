@@ -51,7 +51,7 @@ jobs:
               echo "packagePath=src" >> $GITHUB_ENV
               echo "path set to the src"
             else
-              echo path=public >> $GITHUB_ENV
+              echo packagePath=public >> $GITHUB_ENV
               echo "packagePath set to the public"
             fi
 
@@ -71,6 +71,8 @@ jobs:
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
             ls
+            npm i
+            node console.js
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
         - name: Push to git

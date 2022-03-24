@@ -2,7 +2,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-console.log("---env----", process.env);
+console.log("---env----", process.env.packagePath);
 
 console.log('core-----------', core);
 console.log("======github=", github);
