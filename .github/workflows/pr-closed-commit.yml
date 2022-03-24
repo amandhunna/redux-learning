@@ -9,6 +9,12 @@ on:
      branches:    
       - 'main'
 
+# environment: production #don't work
+if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+env:
+  TOKEN: ${{ secrets.TESTINGTOKEN }}
+  SSH: "${{ secrets.SSH }}"
+
 jobs:
   checkLabels:
     runs-on: ubuntu-latest
@@ -16,14 +22,14 @@ jobs:
     steps:
       - run: echo Check labels is not empty
 
-  commitFile:
+  pre_commitFile:
     needs: [checkLabels]
     environment: production
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    env:
-      TOKEN: ${{ secrets.TESTINGTOKEN }}
-      SSH: "${{ secrets.SSH }}"
+    # env:
+      # TOKEN: ${{ secrets.TESTINGTOKEN }}
+      # SSH: "${{ secrets.SSH }}"
     strategy:
       matrix:
         label: ["bug", "web"]
@@ -55,11 +61,11 @@ jobs:
               echo "packagePath set to the public"
             fi
 
-        - name: Setting up
-          if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
-          uses: webfactory/ssh-agent@v0.4.1
-          with:
-              ssh-private-key: ${{ secrets.SSH  }}
+        # - name: Setting up
+          # if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+          # uses: webfactory/ssh-agent@v0.4.1
+          # with:
+              # ssh-private-key: ${{ secrets.SSH  }}
 
         - name: Get size of ${{env.packagePath}} and add to size-${{env.packagePath}}.txt
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
@@ -70,18 +76,70 @@ jobs:
         - name: move size-${{env.packagePath}}.txt  to stats folder
           if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           run: |
-            ls
-            npm i
-            node console.js
+            cat ${{env.packagePath}}/size-${{env.packagePath}}.txt
             mv ${{env.packagePath}}/size-${{env.packagePath}}.txt stats/
 
-        - name: Push to git
+
+        - name: Upload code folder size
+          uses: actions/upload-artifact@v3
+          with:
+            name: size-${{env.packagePath}}.txt
+            path: stats/size-${{env.packagePath}}.txt
+
+        # - name: Push to git
           # if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-          run: |
-              git config user.email "amandhunna.dev@gmail.com"
-              git config user.name "amandhunna"
-              git remote set-url origin "git@github.com:${{ github.repository }}"
-              git fetch
-              echo size-${{env.packagePath}}.txt  >> commit.txt
-              echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
+          # run: |
+              # git config user.email "amandhunna.dev@gmail.com"
+              # git config user.name "amandhunna"
+              # git remote set-url origin "git@github.com:${{ github.repository }}"
+              # git fetch
+              # echo size-${{env.packagePath}}.txt  >> commit.txt
+              # echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
+
+  commitFile:
+    environment: production
+    runs-on: ubuntu-latest
+    needs: [pre_commitFile]
+    steps:    
+      - name: setup checkout
+        uses: actions/checkout@v2
+
+      - name: Setting up
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH  }}
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: size-src.txt
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: size-public.txt
+
+      - name: move size-public.txt to the stats
+        run: mv size-public.txt stats/
+
+      - name: move size-src.txt to the stats
+        run: mv size-src.txt stats/
+    
+      # - name: Display structure of downloaded files
+        # run: ls -R
+      
+      - name: Commit files
+        working-directory: stats
+        run : |
+          ls
+          cat size-public.txt
+          cat size-src.txt
+          git status
+
+      - name: Push to git
+        run: |
+          git config user.email "amandhunna.dev@gmail.com"
+          git config user.name "amandhunna"
+          git remote set-url origin "git@github.com:${{ github.repository }}"
+          git fetch
+          echo size-${{env.packagePath}}.txt  >> commit.txt
+          echo `git add . && git commit -m "feat: masterBuild.txt file" --no-verify && git push origin $GITHUB_BASE_REF`
