@@ -4,8 +4,8 @@ name: merge commit - build files size
 
 on:
   pull_request:
-    #  types:
-      # - closed
+     types:
+      - closed
      branches:    
       - 'main'
 
@@ -19,7 +19,7 @@ jobs:
   commitFile:
     needs: [checkLabels]
     environment: production
-    # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env:
       TOKEN: ${{ secrets.TESTINGTOKEN }}
