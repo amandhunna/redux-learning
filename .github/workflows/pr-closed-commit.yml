@@ -78,6 +78,12 @@ jobs:
           working-directory: stats
           run : ls 
 
+        - name: Archive code coverage results
+          uses: actions/upload-artifact@v3
+          with:
+            name: size-${{env.packagePath}}.txt
+            path: stats/size-${{env.packagePath}}.txt
+
         # - name: Push to git
           # if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
           # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
