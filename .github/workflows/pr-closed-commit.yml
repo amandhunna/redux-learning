@@ -102,6 +102,13 @@ jobs:
       - name: setup checkout
         uses: actions/checkout@v2
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: size-src.txt
+    
+      - name: Display structure of downloaded files
+        run: ls -R
+      
       - name: Commit files
         working-directory: stats
         run : ls 
