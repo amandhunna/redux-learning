@@ -1,7 +1,1 @@
-4.0K	./favicon.ico
-4.0K	./index.html
-8.0K	./logo192.png
-12K	./logo512.png
-4.0K	./manifest.json
-4.0K	./robots.txt
-36K	total
+old file

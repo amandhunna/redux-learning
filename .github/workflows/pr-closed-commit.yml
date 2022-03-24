@@ -105,15 +105,24 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: size-src.txt
-          run: echo "files  "
 
       - uses: actions/download-artifact@v3
         with:
           name: size-public.txt
+
+      - name: move size-public.txt to the stats
+        run: mv size-public.txt stats/
+
+      - name: move size-src.txt to the stats
+        run: mv size-src.txt stats/
     
-      - name: Display structure of downloaded files
-        run: ls -R
+      # - name: Display structure of downloaded files
+        # run: ls -R
       
       - name: Commit files
         working-directory: stats
-        run : ls 
+        run : |
+          ls
+          cat size-public.txt
+          cat size-src.txt
+          git status
