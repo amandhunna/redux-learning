@@ -29,7 +29,11 @@ function conversion() {
 
 async function run() {
   try {
-    const message = "First Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column"
+    const message = `First Header | Second Header
+    \n------------ | -------------\n
+    Content from cell 1 | Content from cell 2\n
+    Content in the first column | Content in the second column`;
+    
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
