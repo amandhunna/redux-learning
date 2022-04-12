@@ -33,7 +33,8 @@ async function run() {
         owner: owner,
         repo:  "redux-learning",
         issue_number: pull_request_number,
-        body: message
+        body: message,
+        ...context.repo,
       });
  
     console.log("-----new", new_comment);
