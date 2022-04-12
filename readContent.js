@@ -36,7 +36,7 @@ const mdString = conversionArr.reduce((acc, curr) => {
 
 async function run() {
   try {
-    const message = mdString(myJSON);
+    const message = `Delta files from build \n ${mdString(myJSON)}`;
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
