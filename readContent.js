@@ -4,7 +4,7 @@ const github = require('@actions/github');
 
 // console.log("github", github);
 // console.log("process", process.env);
-console.log("--", process.env);
+console.log("--", process.env.super_secret);
 
 async function run() {
   try {
@@ -44,4 +44,4 @@ async function run() {
   }
 }
 
-//run();
+run();
