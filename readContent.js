@@ -4,26 +4,39 @@ const github = require('@actions/github');
 
 // console.log("github", github);
 // console.log("process", process.env);
+console.log("--", process.env.super_secret);
 
-const github_token = core.getInput('super_secret');
-const github_token2 = core.getInput('GITHUB_TOKEN');
-const message2 = core.getInput('message');
+const myJSON = {
+  "/build/es2015-accountRoutes": { base: "24K", current: "32K" },
+  "/build/es2015-orderDetails": { base: "316K", current: "324K" },
+  "/build/es2015-paymentHistoryPage": { base: "128K", current: 0 },
+  "/build/es2015-refundListContainer": { base: "40K", current: "72K" },
+  "/build/es2015-reviews": { base: "112K", current: "108K" },
+  "/build/es2015-support": { base: "224K", current: "232K" },
+  "/build/es2015-supportIssuesPage": { base: "148K", current: "188K" },
+  "/build/es2015-tracking": { base: "560K", current: "564K" },
+  "/build/es2015-vendor": { base: "1.7M", current: "1.8M" },
+  "/build/es2015-vendors-bui~PaymentHistory": { base: "36K", current: "64K" },
+  "/build/es2015-vendors-search": { base: "92K", current: "100K" },
+  "/build/es2015-web-payments": { base: "980K", current: "992K" },
+  total: { base: "53M", current: "54M" }
+};
 
-// console.log("message", message2);
-// console.log("token", github_token, github_token2)
-console.log("--", process.env);
-// console.log( "super_secret==", process.env.super_secret);
+function mdString(myJSON) {
+  const conversionArr = Object.entries(myJSON).map(([key, values], index) => ({"Sno" :index+ 1, fileName: key, ...values }));
+  const initial = "Sno | FileName | Base |Current \n------------ | ------------- | ------------- | -------------\n";
 
+const mdString = conversionArr.reduce((acc, curr) => {
+  const row = curr.Sno + "|" + curr.fileName + "|" + curr.base + "|" + curr.current + "\n";
+  return acc + row;
+}, initial);
+
+  return mdString;
+}
 
 async function run() {
   try {
-    const message = `
-    <table>
-        <th>1</th>
-        <th>2</th>
-        <td>we</td>
-        <td>67</td>
-    </table> `;
+    const message = `Delta files from build \n ${mdString(myJSON)}`;
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
@@ -42,7 +55,8 @@ async function run() {
         owner: owner,
         repo:  "redux-learning",
         issue_number: pull_request_number,
-        body: message
+        body: message,
+        ...context.repo,
       });
  
     console.log("-----new", new_comment);
@@ -53,4 +67,4 @@ async function run() {
   }
 }
 
-//run();
+run();

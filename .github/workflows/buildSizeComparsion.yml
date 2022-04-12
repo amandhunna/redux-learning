@@ -1,11 +1,8 @@
 name: Build size comparsion
 
 on:
-  push:
-    branches: [ pr-comment-silent ]
-  
   pull_request:
-    branches: [ main-silent ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,18 +11,14 @@ jobs:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
     environment: production
-    strategy:
-      matrix:
-        node-version: [12.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 16
 
     - run: npm i
-    - run: echo $message
     - run: node readContent.js
   
