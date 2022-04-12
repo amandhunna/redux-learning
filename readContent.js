@@ -10,10 +10,10 @@ async function run() {
   try {
     const message = `
     |index|fileName|base|current|
-|----|----|----|----|
-|1|/build/es2015-accountRoutes|24K|32K|
-|2|/build/es2015-orderDetails|316K|324K|
-|3|/build/es2015-paymentHistoryPage|128K|0||4|/build/es2015-refundListContainer|40K|72K|
+    |----|----|----|----|
+    |1|/build/es2015-accountRoutes|24K|32K|
+    |2|/build/es2015-orderDetails|316K|324K|
+    |3|/build/es2015-paymentHistoryPage|128K|0||4|/build/es2015-refundListContainer|40K|72K|
 `;
     const { context } = github;
 
