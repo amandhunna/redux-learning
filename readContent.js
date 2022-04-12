@@ -4,26 +4,17 @@ const github = require('@actions/github');
 
 // console.log("github", github);
 // console.log("process", process.env);
-
-const github_token = core.getInput('super_secret');
-const github_token2 = core.getInput('GITHUB_TOKEN');
-const message2 = core.getInput('message');
-
-// console.log("message", message2);
-// console.log("token", github_token, github_token2)
 console.log("--", process.env);
-// console.log( "super_secret==", process.env.super_secret);
-
 
 async function run() {
   try {
     const message = `
-    <table>
-        <th>1</th>
-        <th>2</th>
-        <td>we</td>
-        <td>67</td>
-    </table> `;
+    |index|fileName|base|current|
+|----|----|----|----|
+|1|/build/es2015-accountRoutes|24K|32K|
+|2|/build/es2015-orderDetails|316K|324K|
+|3|/build/es2015-paymentHistoryPage|128K|0||4|/build/es2015-refundListContainer|40K|72K|
+`;
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {

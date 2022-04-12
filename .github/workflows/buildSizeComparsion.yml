@@ -1,11 +1,8 @@
 name: Build size comparsion
 
 on:
-  push:
-    branches: [ pr-comment-silent ]
-  
   pull_request:
-    branches: [ main-silent ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -26,6 +23,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - run: npm i
-    - run: echo $message
     - run: node readContent.js
   
