@@ -24,7 +24,7 @@ const myJSON = {
 
 function mdString(myJSON) {
   const conversionArr = Object.entries(myJSON).map(([key, values], index) => ({"Sno" :index+ 1, fileName: key, ...values }));
-  const initial = "Sno | FileName | Base |Current \n------------ | -------------\n";
+  const initial = "Sno | FileName | Base |Current \n------------ | ------------- | ------------- | -------------\n";
 
 const mdString = conversionArr.reduce((acc, curr) => {
   const row = curr.Sno + "|" + curr.fileName + "|" + curr.base + "|" + curr.current + "\n";
