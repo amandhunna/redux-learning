@@ -1,0 +1,15 @@
+4.0K	./App.css
+4.0K	./App.js
+4.0K	./App.test.js
+4.0K	./action.js
+60K	./car.jpeg
+4.0K	./epics.js
+4.0K	./index.css
+4.0K	./index.js
+4.0K	./logo.svg
+36K	./lorem.js
+4.0K	./reportWebVitals.js
+4.0K	./setupTests.js
+4.0K	./store.js
+376K	./testImage.jpeg
+516K	total
