@@ -6,15 +6,30 @@ const github = require('@actions/github');
 // console.log("process", process.env);
 console.log("--", process.env.super_secret);
 
+const myJSON = {
+  "/build/es2015-accountRoutes": { base: "24K", current: "32K" },
+  "/build/es2015-orderDetails": { base: "316K", current: "324K" },
+  "/build/es2015-paymentHistoryPage": { base: "128K", current: 0 },
+  "/build/es2015-refundListContainer": { base: "40K", current: "72K" },
+  "/build/es2015-reviews": { base: "112K", current: "108K" },
+  "/build/es2015-support": { base: "224K", current: "232K" },
+  "/build/es2015-supportIssuesPage": { base: "148K", current: "188K" },
+  "/build/es2015-tracking": { base: "560K", current: "564K" },
+  "/build/es2015-vendor": { base: "1.7M", current: "1.8M" },
+  "/build/es2015-vendors-bui~PaymentHistory": { base: "36K", current: "64K" },
+  "/build/es2015-vendors-search": { base: "92K", current: "100K" },
+  "/build/es2015-web-payments": { base: "980K", current: "992K" },
+  total: { base: "53M", current: "54M" }
+};
+
+function conversion() {
+  const conversionArr = Object.entries(myJSON).map(([key, values], index) => ({"Sno." :index+ 1, fileName: key, ...values }));
+  return conversionArr;
+}
+
 async function run() {
   try {
-    const message = `
-    |index|fileName|base|current|
-    |----|----|----|----|
-    |1|/build/es2015-accountRoutes|24K|32K|
-    |2|/build/es2015-orderDetails|316K|324K|
-    |3|/build/es2015-paymentHistoryPage|128K|0||4|/build/es2015-refundListContainer|40K|72K|
-`;
+    const message = "First Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column"
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
