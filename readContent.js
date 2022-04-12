@@ -22,18 +22,32 @@ const myJSON = {
   total: { base: "53M", current: "54M" }
 };
 
-function conversion() {
+function mdString(myJSON) {
   const conversionArr = Object.entries(myJSON).map(([key, values], index) => ({"Sno." :index+ 1, fileName: key, ...values }));
-  return conversionArr;
+  const initial =
+  "Sno | FileName | Base |Current \n------------ | -------------\n";
+
+const mdString = conversionArr.reduce((acc, curr) => {
+  console.log(curr);
+  const row =
+    curr.Sno +
+    1 +
+    "|" +
+    curr.fileName +
+    "|" +
+    curr.base +
+    "|" +
+    curr.current +
+    "\n";
+  return acc + row;
+}, initial);
+
+  return mdString;
 }
 
 async function run() {
   try {
-    const message = `First Header | Second Header
-    \n------------ | -------------\n
-    Content from cell 1 | Content from cell 2\n
-    Content in the first column | Content in the second column`;
-    
+    const message = mdString(myJSON);
     const { context } = github;
 
 /*  if (context.payload.pull_request == null) {
