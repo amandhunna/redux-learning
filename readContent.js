@@ -2,13 +2,9 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-
-console.log("--", process.env);
 console.log( "super_secret==", process.env.super_secret);
 
-
-
-(async function() {
+async function addLabel() {
   try {
       const { context } = github;
       const pull_request_number = context.payload.pull_request.number;
@@ -52,4 +48,6 @@ console.log( "super_secret==", process.env.super_secret);
   } catch (error) {
       core.setFailed(`comment action failed with error::: ${error}`);
   }
-})();
+}
+
+addLabel();
