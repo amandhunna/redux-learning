@@ -1,0 +1,76 @@
+name: m-web/d-web build size CI report
+
+on:
+  pull_request:
+    branches: [ tip-buildsize-log ]
+
+jobs:
+  checkLabel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Auto add m-web label"
+        run: node ./scripts/addMebLabel.js
+
+  create-report:
+    needs: [checkLabels]
+    runs-on: ubuntu-latest
+    env:
+      BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+    
+    strategy:
+      matrix:
+        label: ["portal-dweb", "portal-mweb"]
+
+    steps:
+    - name: setup checkout v2
+      if: ${{ contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      uses: actions/checkout@v2
+    
+    - name: Use Node.js 14.18.1
+      if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.18.1
+        
+    - name: node version
+      run: node -v
+
+    - name: npm version
+      run: npm -v
+
+
+    - name: Creating env 'packagePath' and assigning a value to it
+      if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      run: |
+        echo "packagePath=${{ matrix.label }}" >> $GITHUB_ENV
+    
+    - name: create .npmrc file
+      if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      run: |
+        if [ ${{matrix.label}} = "portal-dweb" ]
+        then
+          make create-npmrc-dweb
+          echo "creating npmrc for dweb"
+        else
+          make create-npmrc-mweb
+          echo "creating npmrc for mweb"
+        fi
+      
+
+    - name: install dependencies for ${{env.packagePath}}
+      if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      working-directory: ./packages/${{env.packagePath}}/
+      run: |
+        node -v
+        npm ci
+        npm run compile
+        du -hc ./build/* > current.txt
+    
+    - name: compare files size (running from root)
+      if: ${{ success() && contains(github.event.pull_request.labels.*.name, matrix.label) }}
+      run: |
+        npm ci
+        mv ./packages/${{env.packagePath}}/current.txt ./
+        node ./scripts/masterBuildSize.js $(cat ./current.txt)
+        
+        # end of file

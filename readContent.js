@@ -2,55 +2,53 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-// console.log("github", github);
-// console.log("process", process.env);
 
-const github_token = core.getInput('super_secret');
-const github_token2 = core.getInput('GITHUB_TOKEN');
-const message2 = core.getInput('message');
-
-// console.log("message", message2);
-// console.log("token", github_token, github_token2)
 console.log("--", process.env);
-// console.log( "super_secret==", process.env.super_secret);
+console.log( "super_secret==", process.env.super_secret);
 
 
-async function run() {
+
+(async function() {
   try {
-    const message = `
-    <table>
-        <th>1</th>
-        <th>2</th>
-        <td>we</td>
-        <td>67</td>
-    </table> `;
-    const { context } = github;
+      const { context } = github;
+      const pull_request_number = context.payload.pull_request.number;
+      const owner = context.actor;
+      const repo = context.payload.repository.name;
+      
+      // init octokit
+      const token =  process.env.super_secret
+      const octokit = new github.getOctokit(token);
 
-/*  if (context.payload.pull_request == null) {
-        core.setFailed('No pull request found.');
-        return;
-    } */
 
-    const pull_request_number = context.payload.pull_request.number;
-    const owner = context.actor
-    const octokit = new github.getOctokit(process.env.super_secret);
-    const repo = context.payload.repository.name;
-
-    console.log("octakit working")
- 
-    const new_comment = await octokit.rest.issues.createComment({
+      const updatedIssueInformation = await octokit.issues.get({
         owner: owner,
-        repo:  "redux-learning",
-        issue_number: pull_request_number,
-        body: message
+        repo: repo,
+        issue_number: pull_request_number
       });
- 
-    console.log("-----new", new_comment);
 
+      console.log("===updatedIssueInformation==", JSON.stringify(updatedIssueInformation));
+    
+      const labels = updatedIssueInformation.data.labels.map(label => label.name);
+      
+      console.log("=labels====", JSON.stringify(labels));
+
+      const labelsToAdd = ["web", "bug"];
+
+      for (let labelToAdd of labelsToAdd) {
+        if (!labels.includes(labelToAdd)) {
+          labels.push(labelToAdd);
+        }
+      }
+
+      await octokit.issues.update({
+        owner: ownerName,
+        repo: repoName,
+        issue_number: issueNumber,
+        labels: labels
+      });
+
+      return `Updated labels in ${JSON.stringify(labels)}.`;
   } catch (error) {
-      console.log("Rerr", error);
-    core.setFailed(error.message);
+      core.setFailed(`comment action failed with error::: ${error}`);
   }
-}
-
-//run();
+})();
