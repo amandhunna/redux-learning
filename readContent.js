@@ -15,19 +15,17 @@ async function addLabel() {
       const token =  process.env.super_secret
       const octokit = new github.getOctokit(token);
 
-      // console.log("----octokit", octokit);
-
       const updatedIssueInformation = await octokit.rest.issues.get({
         owner: owner,
         repo: repo,
         issue_number: pull_request_number
       });
 
-      // console.log("===updatedIssueInformation==", JSON.stringify(updatedIssueInformation));
-    
       const labels = updatedIssueInformation.data.labels.map(label => label.name);
       
-      console.log("=labels====", JSON.stringify(labels));
+      const existingLabels = `Existing labels labels are ${JSON.stringify(labels)}.`;
+      core.info(existingLabels);
+    
 
       const labelsToAdd = ["web", "bug"];
 
@@ -36,17 +34,21 @@ async function addLabel() {
           labels.push(labelToAdd);
         }
       }
-
+k
       await octokit.rest.issues.update({
         owner: owner,
         repo: repo,
         issue_number: pull_request_number,
         labels: labels
       });
+      
+      const updatedLabels = `Updated labels are ${JSON.stringify(labels)}.`;
+      core.info(updatedLabels);
 
-      return `Updated labels in ${JSON.stringify(labels)}.`;
+
+      return null
   } catch (error) {
-      core.setFailed(`comment action failed with error::: ${error}`);
+      core.setFailed(`Add label action failed with error::: ${error}`);
   }
 }
 
