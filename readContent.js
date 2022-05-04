@@ -19,6 +19,7 @@ console.log( "super_secret==", process.env.super_secret);
       const token =  process.env.super_secret
       const octokit = new github.getOctokit(token);
 
+      console.log("----octokit", octokit);
 
       const updatedIssueInformation = await octokit.issues.get({
         owner: owner,
