@@ -15,7 +15,7 @@ async function addLabel() {
       const token =  process.env.super_secret
       const octokit = new github.getOctokit(token);
 
-      console.log("----octokit", octokit);
+      // console.log("----octokit", octokit);
 
       const updatedIssueInformation = await octokit.rest.issues.get({
         owner: owner,
@@ -23,7 +23,7 @@ async function addLabel() {
         issue_number: pull_request_number
       });
 
-      console.log("===updatedIssueInformation==", JSON.stringify(updatedIssueInformation));
+      // console.log("===updatedIssueInformation==", JSON.stringify(updatedIssueInformation));
     
       const labels = updatedIssueInformation.data.labels.map(label => label.name);
       
@@ -38,9 +38,9 @@ async function addLabel() {
       }
 
       await octokit.rest.issues.update({
-        owner: ownerName,
-        repo: repoName,
-        issue_number: issueNumber,
+        owner: owner,
+        repo: repo,
+        issue_number: pull_request_number,
         labels: labels
       });
 
