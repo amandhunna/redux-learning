@@ -17,7 +17,7 @@ async function addLabel() {
 
       console.log("----octokit", octokit);
 
-      const updatedIssueInformation = await octokit.issues.get({
+      const updatedIssueInformation = await octokit.rest.issues.get({
         owner: owner,
         repo: repo,
         issue_number: pull_request_number
@@ -37,7 +37,7 @@ async function addLabel() {
         }
       }
 
-      await octokit.issues.update({
+      await octokit.rest.issues.update({
         owner: ownerName,
         repo: repoName,
         issue_number: issueNumber,
