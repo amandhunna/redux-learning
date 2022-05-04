@@ -34,7 +34,7 @@ async function addLabel() {
           labels.push(labelToAdd);
         }
       }
-k
+
       await octokit.rest.issues.update({
         owner: owner,
         repo: repo,
@@ -44,8 +44,6 @@ k
       
       const updatedLabels = `Updated labels are ${JSON.stringify(labels)}.`;
       core.info(updatedLabels);
-
-
       return null
   } catch (error) {
       core.setFailed(`Add label action failed with error::: ${error}`);
