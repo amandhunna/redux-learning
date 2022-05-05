@@ -14,7 +14,7 @@ jobs:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
       dynamo: node jsENV.js
-      clone: ${{env.message}}
+      clone: $message
     environment: production
     strategy:
       matrix:
@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        
+
     - run: echo $message
     - run: echo $dynamo
     - run: echo $clone
