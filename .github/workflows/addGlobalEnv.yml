@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: create .npmrc file
       run: |
-        if [ contains(github.event.pull_request.labels.*.name, "bug") ]
+        if [ ${{ontains(github.event.pull_request.labels.*.name, "bug")}} ]
         then
           echo "LABELS=[portal-dweb, portal-mweb]" >> $GITHUB_ENV
           echo "creating npmrc for dweb
