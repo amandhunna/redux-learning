@@ -21,7 +21,7 @@ jobs:
           echo "LABELS=[portal-dweb, portal-mweb]" >> $GITHUB_ENV
           echo "creating npmrc for dweb
         else
-          eecho "LABELS=[portal-mweb]" >> $GITHUB_ENV
+          echo "LABELS=[portal-mweb]" >> $GITHUB_ENV
           echo "creating npmrc for mweb"
         fi
 
