@@ -2,7 +2,7 @@ name: Build size run
 
 on:
   push:
-    branches: [ main-silent ]
+    branches: [ label-loop ]
   
   pull_request:
     branches: [ main ]
