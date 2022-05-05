@@ -1,8 +1,11 @@
 const resolvePercyTokens = () => {
     fs = require("fs");
-    fs.writeFile("temptokens.txt", "[portal-mweb]", function (err) {
+
+    const template = { "label" : ["portal-mweb", "portal-dweb" ] }
+
+    fs.writeFile("tempLabels.txt", `${template}`, function (err) {
       if (err) return console.log(err);
-      console.log("Temp Tokens > temptokens.txt");
+      console.log("Temp Labels > tempLabels.txt");
     });
 };
 

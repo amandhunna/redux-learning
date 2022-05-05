@@ -15,7 +15,16 @@ jobs:
     steps:
     - id: set-matrix
       run: |
-        echo "::set-output name=matrix::{ label: ['portal-mweb' ]}"
+        npm i
+        node jsENV.js
+        matrix=$( cat tempLabels.txt | jq -c .)
+        
+        echo $matrix
+        echo "this is formatted"
+        echo $matrix | jq .
+        
+        echo "::set-output name=matrix::$matrix"
+        # echo "::set-output name=matrix::{ label: ['portal-mweb' ]}"
   
   job2:
     needs: job1
