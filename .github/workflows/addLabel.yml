@@ -8,6 +8,24 @@ on:
     branches: [ main ]
 
 jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - id: set-matrix
+      run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+  
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+    steps:
+    - run: echo ${{ matrix.project }}
+    - run: echo ${{ matrix.config }}
+
+# jobs:
   # add-label:
     # runs-on: ubuntu-latest
     # env:
@@ -30,33 +48,33 @@ jobs:
     # - run: echo $message
     # - run: node addLabel.js
 
-  step_two:
-    # needs: [ add-label ]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: {{ steps.set-matrix.outputs.matrix }}
+  # step_two:
+  #   # needs: [ add-label ]
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix: {{ steps.set-matrix.outputs.matrix }}
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14.x
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 14.x
 
-    - run: npm i
-    - run: |
-        node jsENV.js
-        echo "PERCY_TOKEN=$(cat temptokens.txt)" >> $GITHUB_ENV
+  #   - run: npm i
+  #   - run: |
+  #       node jsENV.js
+  #       echo "PERCY_TOKEN=$(cat temptokens.txt)" >> $GITHUB_ENV
 
-    - name: Use the value
-      id: set-matrix
-      run: |
-        # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
-        echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
-        matrix=$((echo '{ "label" : ["portal-mweb" ] }' ) | jq -c .)
-        echo $matrix
-        echo "this is formatted"
-        echo $matrix | jq .
-        echo "::set-output name=matrix::$matrix"
+  #   - name: Use the value
+  #     id: set-matrix
+  #     run: |
+  #       # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
+  #       echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
+  #       matrix=$((echo '{ "label" : ["portal-mweb" ] }' ) | jq -c .)
+  #       echo $matrix
+  #       echo "this is formatted"
+  #       echo $matrix | jq .
+  #       echo "::set-output name=matrix::$matrix"
   
   
