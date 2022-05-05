@@ -13,6 +13,7 @@ jobs:
     env:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
+      dynamo: ${{node jsENV.js}}
     environment: production
     strategy:
       matrix:
@@ -26,6 +27,7 @@ jobs:
 
     - run: npm i
     - run: echo $message
+    - run: echo $dynamo
     # - run: node readContent.js
   
   
