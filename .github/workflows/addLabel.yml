@@ -54,12 +54,9 @@ jobs:
       run: |
         # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
         echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
-        matrix=$((
-            echo '{ "package" : ['
-            sed -n "/^REVDEP *:= */ { s///; p }" revdep-dev/Makefile | sed 's/ /, /g' | xargs -n 1 echo | sed -r 's/^([^,]*)(,?)$/"\1"\2/'
-            echo " ]}"
-        ) | jq -c .)
+        matrix=[portal-mweb]
         echo $matrix
+        echo "space" 
         echo $matrix | jq .
         echo "::set-output name=matrix::$matrix"
   
