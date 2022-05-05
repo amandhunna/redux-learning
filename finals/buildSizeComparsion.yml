@@ -2,14 +2,14 @@ name: m-web/d-web build size CI report
 
 on:
   pull_request:
-    branches: [ tip-buildsize-log ]
+    branches: [ master ]
 
 jobs:
-  checkLabel:
+  checkLabels:
     runs-on: ubuntu-latest
+    if: ${{github.event.pull_request.labels.*.name[0]}}
     steps:
-      - name: "Auto add m-web label"
-        run: node ./scripts/addMebLabel.js
+      - run: echo Neither labelled with "Portal m-web" nor "Portal d-web"
 
   create-report:
     needs: [checkLabels]

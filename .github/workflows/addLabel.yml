@@ -2,10 +2,10 @@ name: Build size run
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main-silent ]
   
   pull_request:
-    branches: [ main ]
+    branches: [ main-silent ]
 
 jobs:
   build:
