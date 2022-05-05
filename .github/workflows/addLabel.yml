@@ -23,8 +23,8 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
-    - run: echo ${{ matrix.project }}
-    - run: echo ${{ matrix.config }}
+    - run: echo ${{ matrix.label }}
+    - run: echo ${{ matrix.label }}
 
 # jobs:
   # add-label:
