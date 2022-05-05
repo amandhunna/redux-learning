@@ -15,7 +15,7 @@ jobs:
     steps:
     - id: set-matrix
       run: |
-        npm i
+        # npm i
         node jsENV.js
         matrix=$( cat tempLabels.txt | jq -c .)
         
