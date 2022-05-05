@@ -5,7 +5,7 @@ on:
     branches: [ label-loop ]
   
   pull_request:
-    branches: [ main ]
+    branches: [ main-silent ]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     env:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
-      dynamo: ${{node jsENV.js}}
+      dynamo: node jsENV.js
     environment: production
     strategy:
       matrix:
