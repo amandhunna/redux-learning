@@ -54,10 +54,11 @@ jobs:
       run: |
         # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
         echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
-        matrix=[portal-mweb]
+        matrix=$((
+            echo '{ "package" : [ portal-mweb ]}"
+        ) | jq -c .)
         echo $matrix
-        echo"
-        #echo $matrix | jq .
+        echo $matrix | jq .
         echo "::set-output name=matrix::$matrix"
   
   
