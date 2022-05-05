@@ -18,7 +18,9 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    - uses: actions/checkout@v2
+    - name: if check for checkout
+      if: 
+      uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -28,12 +30,12 @@ jobs:
     - run: echo $message
     - run: node addLabel.js
 
-  second-step:
+  step_two:
     needs: [ add-label ]
     runs-on: ubuntu-latest
     env:
       super_secret: ${{secrets.TOKEN}}
-      message: "Hello, It's my first second-step!"
+      message: "Hello, It's my first step_two!"
     environment: production
     strategy:
       matrix:
@@ -47,8 +49,14 @@ jobs:
 
     - run: npm i
     - run: |
-        value=${{node jsENV.js}}
-        echo $value
+        node jsENV.js
+        echo "PERCY_TOKEN=$(cat temptokens.txt)" >> $GITHUB_ENV
+    
     - run: echo $message
+
+    - name: Use the value
+      id: step_two
+      run: |
+        echo "${{ env.PERCY_TOKEN }}"
   
   
