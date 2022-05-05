@@ -22,7 +22,8 @@ jobs:
       run: |
         # npm i
         node jsENV.js
-        matrix=$( cat tempLabels.txt | jq -c .)
+        echo (cat tempLabels.txt)
+        matrix=$(cat tempLabels.txt)
         
         echo $matrix
         echo "this is formatted"
