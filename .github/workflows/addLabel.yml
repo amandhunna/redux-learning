@@ -34,8 +34,7 @@ jobs:
     # needs: [ add-label ]
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        label: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: {{ steps.set-matrix.outputs.matrix }}
 
     steps:
     - uses: actions/checkout@v2
@@ -54,7 +53,7 @@ jobs:
       run: |
         # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
         echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
-        matrix=$((echo '{ "package" : ["portal-mweb" ] }' ) | jq -c .)
+        matrix=$((echo '{ "label" : ["portal-mweb" ] }' ) | jq -c .)
         echo $matrix
         echo "this is formatted"
         echo $matrix | jq .
