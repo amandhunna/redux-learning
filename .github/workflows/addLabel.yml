@@ -53,6 +53,7 @@ jobs:
       id: step_two
       run: |
         echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
+        echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
 
 
     # - name: check working
