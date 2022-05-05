@@ -8,55 +8,64 @@ on:
     branches: [ main ]
 
 jobs:
-  add-label:
-    runs-on: ubuntu-latest
-    env:
-      super_secret: ${{secrets.TOKEN}}
-      message: "Hello, It's my first comment with Github action !"
-    environment: production
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-    - name: if check for checkout
-      if: 
-      uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - run: npm i
-    - run: echo $message
-    - run: node addLabel.js
+  # add-label:
+    # runs-on: ubuntu-latest
+    # env:
+      # super_secret: ${{secrets.TOKEN}}
+      # message: "Hello, It's my first comment with Github action !"
+    # environment: production
+    # strategy:
+      # matrix:
+        # node-version: [12.x]
+    # steps:
+    # - name: if check for checkout
+      # if: 
+      # uses: actions/checkout@v2
+    # - name: Use Node.js ${{ matrix.node-version }}
+      # uses: actions/setup-node@v2
+      # with:
+        # node-version: ${{ matrix.node-version }}
+# 
+    # - run: npm i
+    # - run: echo $message
+    # - run: node addLabel.js
 
   step_two:
-    needs: [ add-label ]
+    # needs: [ add-label ]
     runs-on: ubuntu-latest
-    env:
-      super_secret: ${{secrets.TOKEN}}
-      message: "Hello, It's my first step_two!"
-    environment: production
     strategy:
       matrix:
-        node-version: [12.x]
+        label: [portal-mweb, portal-dweb]
+
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
 
     - run: npm i
     - run: |
         node jsENV.js
         echo "PERCY_TOKEN=$(cat temptokens.txt)" >> $GITHUB_ENV
-    
-    - run: echo $message
 
     - name: Use the value
       id: step_two
       run: |
-        echo "${{ env.PERCY_TOKEN }}"
+        echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
+
+
+    # - name: check working
+    #   if: ${{ contains(, matrix.label) }}
+    #   run: |
+    #     if [ ${{matrix.label}} = "portal-dweb" ]
+    #     then
+    #       make create-npmrc-dweb
+    #       echo "creating npmrc for dweb"
+    #     else
+    #       make create-npmrc-mweb
+    #       echo "creating npmrc for mweb"
+    #     fi
+
   
   
