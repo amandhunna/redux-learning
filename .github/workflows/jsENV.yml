@@ -2,7 +2,7 @@ name: Build size run
 
 on:
   push:
-    branches: [ label-loop ]
+    branches: [ label-loop-silent ]
   
   pull_request:
     branches: [ main-silent ]
@@ -13,8 +13,8 @@ jobs:
     env:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
-      dynamo: node jsENV.js
-      clone: $message
+      # dynamo: node jsENV.js or ${{ node jsENV.js}} 
+      # clone: $message
     environment: production
     strategy:
       matrix:

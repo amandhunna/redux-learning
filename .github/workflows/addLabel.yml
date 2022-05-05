@@ -1,14 +1,14 @@
-name: Build size run
+name: add label
 
 on:
   push:
     branches: [ main-silent ]
   
   pull_request:
-    branches: [ main-silent ]
+    branches: [ main ]
 
 jobs:
-  build:
+  add-label:
     runs-on: ubuntu-latest
     env:
       super_secret: ${{secrets.TOKEN}}
@@ -27,6 +27,25 @@ jobs:
     - run: npm i
     - run: echo $message
     - run: node addLabel.js
-  
+
+  second-step:
+    runs-on: ubuntu-latest
+    env:
+      super_secret: ${{secrets.TOKEN}}
+      message: "Hello, It's my first second-step!"
+    environment: production
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm i
+    - run: echo this is a node value == ${{node jsENV.js}}
+    - run: echo $message
   
   
