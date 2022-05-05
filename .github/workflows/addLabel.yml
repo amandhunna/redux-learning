@@ -29,6 +29,7 @@ jobs:
     - run: node addLabel.js
 
   second-step:
+    needs: [ add-label ]
     runs-on: ubuntu-latest
     env:
       super_secret: ${{secrets.TOKEN}}
@@ -45,7 +46,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - run: npm i
-    - run: echo this is a node value == ${{node jsENV.js}}
+    - run: |
+        value=${{node jsENV.js}}
+        echo $value
     - run: echo $message
   
   
