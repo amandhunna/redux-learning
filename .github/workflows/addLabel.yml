@@ -56,6 +56,7 @@ jobs:
         echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
         matrix=$((echo '{ "package" : ["portal-mweb" ] }' ) | jq -c .)
         echo $matrix
+        echo "this is formatted"
         echo $matrix | jq .
         echo "::set-output name=matrix::$matrix"
   
