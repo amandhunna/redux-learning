@@ -22,7 +22,7 @@ jobs:
       run: |
         # npm i
         node jsENV.js
-        echo (cat tempLabels.txt)
+        echo $(cat tempLabels.txt)
         matrix=$(cat tempLabels.txt)
         
         echo $matrix
