@@ -18,10 +18,10 @@ jobs:
       run: |
         if [ ${{contains(github.event.pull_request.labels.*.name, 'bug')}} ]
         then
-          echo "LABELS=['portal-dweb', 'portal-mweb']" >> $GITHUB_ENV
+          # echo "LABELS=['portal-dweb', 'portal-mweb']" >> $GITHUB_ENV
           echo "creating npmrc for dweb
         else
-          echo "LABELS=['portal-mweb']" >> $GITHUB_ENV
+          # echo "LABELS=['portal-mweb']" >> $GITHUB_ENV
           echo "creating npmrc for mweb"
         fi
 
