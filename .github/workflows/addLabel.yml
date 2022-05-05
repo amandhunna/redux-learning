@@ -52,21 +52,7 @@ jobs:
     - name: Use the value
       id: step_two
       run: |
-        echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
+        # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
         echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
-
-
-    # - name: check working
-    #   if: ${{ contains(, matrix.label) }}
-    #   run: |
-    #     if [ ${{matrix.label}} = "portal-dweb" ]
-    #     then
-    #       make create-npmrc-dweb
-    #       echo "creating npmrc for dweb"
-    #     else
-    #       make create-npmrc-mweb
-    #       echo "creating npmrc for mweb"
-    #     fi
-
   
   
