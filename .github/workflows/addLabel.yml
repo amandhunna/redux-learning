@@ -25,12 +25,11 @@ jobs:
         echo $(cat tempLabels.txt)
         matrix=$(cat tempLabels.txt)
         
-        echo $matrix
-        echo "this is formatted"
-        echo $matrix | jq .
+        # echo $matrix
+        # echo "this is formatted"
+        # echo $matrix | jq .
         
         echo "::set-output name=matrix::$matrix"
-        # echo "::set-output name=matrix::{ label: ['portal-mweb' ]}"
   
   job2:
     needs: job1
@@ -38,8 +37,7 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
-    - run: echo ${{ matrix.label }}
-    - run: echo ${{ matrix.label }}
+    - run: echo ${{ matrix.label }} # mweb or dweb
 
 # jobs:
   # add-label:

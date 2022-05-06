@@ -1,0 +1,123 @@
+name: m-web/d-web build size CI report
+
+on:
+  pull_request:
+    branches: [ tip-buildsize-log ]
+
+#jobs:
+  # autoAddLabel:
+    # runs-on: ubuntu-latest
+    # env:
+      # BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+  #  
+    # steps:
+    # - name: setup checkout v2
+      # uses: actions/checkout@v2
+    # 
+    # - name: Use Node.js 14.18.1
+      # uses: actions/setup-node@v1
+      # with:
+        # node-version: 14.18.1
+# 
+    # - name: "Auto add m-web label"
+      # run: |
+        # npm ci
+        # node ./scripts/addMWebLabel.js
+
+jobs:
+  create-matrix:
+    runs-on: ubuntu-latest
+    env:
+      BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    - id: set-matrix
+      run: |
+        npm i
+        node ./scripts/createMatrix.js
+        echo $(cat matrix.txt)
+        matrix=$(cat matrix.txt)
+        
+        # echo $matrix
+        # echo "this is formatted"
+        echo $matrix | jq .
+        
+        echo "::set-output name=matrix::$matrix"
+
+  create-report:
+    needs: [create-matrix]
+    runs-on: ubuntu-latest
+    env:
+      BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+    
+    strategy:
+      matrix: ${{fromJson(needs.create-matrix.outputs.matrix)}}
+
+    steps:
+    - name: setup checkout v2
+      uses: actions/checkout@v2
+    
+
+    - name: Use Node.js 14.18.1
+      if: ${{ success() }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.18.1
+        
+    - name: node version
+      run: node -v
+    - name: npm version
+      run: npm -v
+
+    # - name: Add m-web to the labels array and move array to ENV  
+      # run: |
+        # npm i
+        # node ./scripts/addMWebLabel.js
+        # echo "TEMP_LABEL=$(cat tempLabels.txt)" >> $GITHUB_ENV
+# 
+    # - name: Use the ENV value 
+      # run: echo  ${{ contains(env.TEMP_LABEL, matrix.label) }}
+
+
+    - name: Creating env 'packagePath' and assigning a value to it
+      if: ${{ success() }}
+      run: |
+        echo "packagePath=${{ matrix.label }}" >> $GITHUB_ENV
+    
+    - name: create .npmrc file
+      if: ${{ success() }}
+      run: |
+        if [ ${{matrix.label}} = "portal-dweb" ]
+        then
+          make create-npmrc-dweb
+          echo "creating npmrc for dweb"
+        else
+          make create-npmrc-mweb
+          echo "creating npmrc for mweb"
+        fi
+      
+
+    - name: install dependencies for ${{matrix.label}}
+      if: ${{ success() }}
+      working-directory: ./packages/${{matrix.label}}/
+      run: |
+        node -v
+        npm ci
+        npm run compile
+        du -hc ./build/* > current.txt
+    
+    - name: compare files size (running from root)
+      if: ${{ success() }}
+      run: |
+        npm ci
+        echo ${{matrix.label}}
+        cat ./packages/${{matrix.label}}/current.txt
+        mv ./packages/${{matrix.label}}/current.txt ./
+        node ./scripts/masterBuildSize.js $(cat ./current.txt)
+        
+        # end of file
