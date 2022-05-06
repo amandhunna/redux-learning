@@ -1,0 +1,49 @@
+name: Build size run/ envs not shared bw steps, NOT WORKING
+
+on:
+  push:
+    branches: [ main-silent ]
+  
+  pull_request:
+    branches: [ main-silent ]
+
+
+jobs:
+
+  pre: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: create .npmrc file
+      run: |
+        if [ ${{contains(github.event.pull_request.labels.*.name, 'bug')}} ]
+        then
+          echo "LABELS=[portal-dweb, portal-mweb]" >> $GITHUB_ENV
+          echo "creating npmrc for dweb"
+        else
+          echo "LABELS=[portal-mweb]" >> $GITHUB_ENV
+          echo "creating npmrc for mweb"
+        fi
+
+    - run: echo $LABELS
+      
+  build:
+    needs: [pre]
+    runs-on: ubuntu-latest
+    env:
+      super_secret: ${{secrets.TOKEN}}
+      message: "Hello, It's my first comment with Github action !"
+    environment: production
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm i
+    - run: echo $LABELS
+  

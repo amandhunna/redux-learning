@@ -1,0 +1,94 @@
+name: add label
+
+on:
+  push:
+    branches: [ main-silent ]
+  
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    - id: set-matrix
+      run: |
+        # npm i
+        node jsENV.js
+        echo $(cat tempLabels.txt)
+        matrix=$(cat tempLabels.txt)
+        
+        # echo $matrix
+        # echo "this is formatted"
+        # echo $matrix | jq .
+        
+        echo "::set-output name=matrix::$matrix"
+  
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+    steps:
+    - run: echo ${{ matrix.label }} # mweb or dweb
+
+# jobs:
+  # add-label:
+    # runs-on: ubuntu-latest
+    # env:
+      # super_secret: ${{secrets.TOKEN}}
+      # message: "Hello, It's my first comment with Github action !"
+    # environment: production
+    # strategy:
+      # matrix:
+        # node-version: [12.x]
+    # steps:
+    # - name: if check for checkout
+      # if: 
+      # uses: actions/checkout@v2
+    # - name: Use Node.js ${{ matrix.node-version }}
+      # uses: actions/setup-node@v2
+      # with:
+        # node-version: ${{ matrix.node-version }}
+# 
+    # - run: npm i
+    # - run: echo $message
+    # - run: node addLabel.js
+
+  # step_two:
+  #   # needs: [ add-label ]
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix: {{ steps.set-matrix.outputs.matrix }}
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 14.x
+
+  #   - run: npm i
+  #   - run: |
+  #       node jsENV.js
+  #       echo "PERCY_TOKEN=$(cat temptokens.txt)" >> $GITHUB_ENV
+
+  #   - name: Use the value
+  #     id: set-matrix
+  #     run: |
+  #       # echo "${{ env.PERCY_TOKEN }}-${{ matrix.label }}"
+  #       echo  ${{ contains(env.PERCY_TOKEN, matrix.label) }}
+  #       matrix=$((echo '{ "label" : ["portal-mweb" ] }' ) | jq -c .)
+  #       echo $matrix
+  #       echo "this is formatted"
+  #       echo $matrix | jq .
+  #       echo "::set-output name=matrix::$matrix"
+  
+  

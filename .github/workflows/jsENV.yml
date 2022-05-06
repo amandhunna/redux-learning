@@ -1,8 +1,8 @@
-name: Build size comparsion
+name: Build size run
 
 on:
   push:
-    branches: [ pr-comment-silent ]
+    branches: [ label-loop-silent ]
   
   pull_request:
     branches: [ main-silent ]
@@ -13,11 +13,12 @@ jobs:
     env:
       super_secret: ${{secrets.TOKEN}}
       message: "Hello, It's my first comment with Github action !"
+      # dynamo: node jsENV.js or ${{ node jsENV.js}} 
+      # clone: $message
     environment: production
     strategy:
       matrix:
         node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -25,7 +26,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: npm i
     - run: echo $message
-    - run: node readContent.js
+    - run: echo $dynamo
+    - run: echo $clone
+    # - run: node readContent.js
+  
+  
   
