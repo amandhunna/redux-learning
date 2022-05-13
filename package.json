@@ -1,0 +1,19 @@
+{
+  "name": "swiggy-learning",
+  "version": "1.0.0",
+  "description": "just pratice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amandhunna/redux-learning.git"
+  },
+  "author": "amandhunna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amandhunna/redux-learning/issues"
+  },
+  "homepage": "https://github.com/amandhunna/redux-learning#readme"
+}
