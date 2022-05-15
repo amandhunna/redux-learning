@@ -41,7 +41,8 @@ function App() {
   }
 
   return (
-    <>
+    <main>
+      <section>
       <em>On mac: go to settings => general => change appearences to light and dark</em>
       <p>{count}</p>
       <picture>
@@ -51,7 +52,12 @@ function App() {
       </picture>
       <button onClick={increment}>Increment</button>
       <button onClick={decrement}>Decrement</button>
-    </>
+      </section>
+      <section>
+      <iframe src="http://localhost:8000/" height="100%" width="100%"
+        title="W3Schools Free Online Web Tutorials"></iframe>
+      </section>
+    </main>
   );
 }
 

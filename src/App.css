@@ -22,3 +22,16 @@ button {
   border: none;
   border-radius: 10px;
 }
+main {
+  display: flex;
+}
+
+section {
+  flex-basis: 50%;
+}
+iframe {
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+}
