@@ -1,17 +1,16 @@
 
-import './index.css';
-import App from './App';
 import React from 'react';
-import { connect, Provider } from 'react-redux';
-import { store } from './store';
 import ReactDOM from 'react-dom';
-import Counter from './App';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import App from './App';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
-  <React.StrictMode>
-    <Counter />
-  </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );
