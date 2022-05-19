@@ -75,13 +75,13 @@ function App(props) {
 
   return (
      <div className="App">
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="all" element={<AllProducts />} />
-      <Route path="*" element={<NoPage />} />
-    </Routes>
-  </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="all" element={<AllProducts />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </BrowserRouter>
      </div>
     
   );
